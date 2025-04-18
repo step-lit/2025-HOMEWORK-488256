@@ -56,6 +56,10 @@ public class Borsa {
 	public boolean isEmpty() {
 		return this.numeroAttrezzi == 0;
 	}
+	
+	public Attrezzo[] getAttrezzi() {
+        return this.attrezzi;
+    }
 		
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		return this.getAttrezzo(nomeAttrezzo)!=null;

@@ -39,7 +39,15 @@ public class Partita {
 	public boolean isFinita() {
 		return finita || vinta() || (this.giocatore.getCfu() == 0);
 	}
-
+	
+	/**
+	 * Restituisce vero se il giocatore non ha 
+	 * esaurito i cfu
+	 */
+	public boolean giocatoreIsVivo() {
+		return this.giocatore.getCfu() > 0;
+	}
+	
 	/**
 	 * Imposta la partita come finita
 	 *

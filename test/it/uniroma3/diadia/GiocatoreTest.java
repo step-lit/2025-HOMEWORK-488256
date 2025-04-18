@@ -10,11 +10,11 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 class GiocatoreTest {
 
 	
-	Giocatore giocatore;
+	private Giocatore giocatore;
 	
 	@BeforeEach
 	public void setUp() {
-		giocatore = new Giocatore();
+		this.giocatore = new Giocatore();
 	}
 	
 	
@@ -26,20 +26,20 @@ class GiocatoreTest {
 	@Test
 	public void testGetCfu() {
 		//test dei cfu iniziali
-		assertEquals(20, giocatore.getCfu());
+		assertEquals(20, this.giocatore.getCfu());
 	}
 	
 	@Test
 	public void testGetCfuDiversi() {
 		//vengono impostati i cfu ad un altro numero
 		giocatore.setCfu(15);
-		assertEquals(15, giocatore.getCfu());
+		assertEquals(15, this.giocatore.getCfu());
 	}
 	
 	@Test
 	public void testGetBorsa() {
 		//il giocatore viene inizializzato con un oggetto borsa da costruttore
-		assertNotNull(giocatore.getBorsa());
+		assertNotNull(this.giocatore.getBorsa());
 	}
 	
 	

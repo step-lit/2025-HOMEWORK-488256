@@ -9,30 +9,30 @@ import it.uniroma3.diadia.ambienti.Labirinto;
 
 class LabirintoTest {
 	
-	Labirinto labirintoTest;
+	private Labirinto labirintoTest;
 	
 	@BeforeEach
 	public void setUp() {
-		labirintoTest = new Labirinto();
+		this.labirintoTest = new Labirinto();
 	}
 	
 	@Test
 	void testGetStanzaVincente() {
 		//inizialmente la stanza vincente è la stanza "Biblioteca"
-		assertEquals("Biblioteca", labirintoTest.getStanzaVincente().getNome());
+		assertEquals("Biblioteca", this.labirintoTest.getStanzaVincente().getNome());
 	}
 	
 	@Test
 	void testGetStanzaCorrente() {
 		//inizialmente la stanza corrente è la stanza "Atrio"
-		assertEquals("Atrio", labirintoTest.getStanzaCorrente().getNome());
+		assertEquals("Atrio", this.labirintoTest.getStanzaCorrente().getNome());
 	}
 	
 	@Test
 	void testSetStanzaCorrente() {
 		//cambiamo la stanza corrente con la stanza vincente
 		labirintoTest.setStanzaCorrente(labirintoTest.getStanzaVincente());
-		assertEquals("Biblioteca", labirintoTest.getStanzaCorrente().getNome());
+		assertEquals("Biblioteca", this.labirintoTest.getStanzaCorrente().getNome());
 	}
 	
 }

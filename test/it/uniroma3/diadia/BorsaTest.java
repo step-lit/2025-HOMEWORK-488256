@@ -10,17 +10,17 @@ import it.uniroma3.diadia.giocatore.Borsa;
 
 class BorsaTest {
 
-	Borsa borsaTest;
-	Attrezzo foglio;
-	Attrezzo torcia;
-	Attrezzo martello;
+	private Borsa borsaTest;
+	private Attrezzo foglio;
+	private Attrezzo torcia;
+	private Attrezzo martello;
 	
 	@BeforeEach
 	public void setUp() {
-		borsaTest = new Borsa();
-		foglio = new Attrezzo("Foglio", 0);
-		torcia = new Attrezzo("Torcia", 1);
-		martello = new Attrezzo("Martello", 2);
+		this.borsaTest = new Borsa();
+		this.foglio = new Attrezzo("Foglio", 0);
+		this.torcia = new Attrezzo("Torcia", 1);
+		this.martello = new Attrezzo("Martello", 2);
 	}
 	
 	/*********************************************************************
@@ -30,25 +30,25 @@ class BorsaTest {
 	@Test
 	public void testAddAttrezzo() {
 		//la borsa inizialmente non ha attrezzi
-		assertTrue(borsaTest.addAttrezzo(martello));
+		assertTrue(this.borsaTest.addAttrezzo(this.martello));
 	}
 	
 	@Test
 	public void testAddAttrezzoBorsaPiena() {
 		//la borsa è piena (10 attrezzi)
 		for(int i=0; i<10; i++) {
-			borsaTest.addAttrezzo(foglio); //aggiunge 10 fogli di peso 0
+			this.borsaTest.addAttrezzo(this.foglio); //aggiunge 10 fogli di peso 0
 		}
-		assertFalse(borsaTest.addAttrezzo(foglio)); //da false perché piena
+		assertFalse(this.borsaTest.addAttrezzo(this.foglio)); //da false perché piena
 	}
 	
 	@Test
 	public void testAddAttrezzoMaxPeso() {
 		//la borsa ha raggiunto il peso max
 		for(int i=0; i<5; i++) {
-			borsaTest.addAttrezzo(martello); //aggiunge 5 martelli di peso 2
+			this.borsaTest.addAttrezzo(this.martello); //aggiunge 5 martelli di peso 2
 		}
-		assertFalse(borsaTest.addAttrezzo(martello)); //da false perché supera il peso max
+		assertFalse(this.borsaTest.addAttrezzo(this.martello)); //da false perché supera il peso max
 	}
 	
 	
@@ -60,23 +60,23 @@ class BorsaTest {
 	@Test
 	public void testRemoveAttrezzoNoAttrezzi() {
 		//la borsa inizialmente non ha attrezzi
-		assertNull(borsaTest.removeAttrezzo("Martello"));
+		assertNull(this.borsaTest.removeAttrezzo("Martello"));
 	}
 	
 	@Test
 	public void testRemoveAttrezzo() {
 		//la borsa contiene l'attrezzo martello
-		borsaTest.addAttrezzo(torcia);
-		borsaTest.addAttrezzo(martello);
-		borsaTest.addAttrezzo(foglio);
-		assertEquals(martello, borsaTest.removeAttrezzo("Martello"));
+		this.borsaTest.addAttrezzo(this.torcia);
+		this.borsaTest.addAttrezzo(this.martello);
+		this.borsaTest.addAttrezzo(this.foglio);
+		assertEquals(this.martello, this.borsaTest.removeAttrezzo("Martello"));
 	}
 
 	@Test
 	public void testRemoveAttrezzoNonPresente() {
 		//la borsa prova a rimuovere un attrezzo non contenuto
-		borsaTest.addAttrezzo(torcia);
-		borsaTest.addAttrezzo(foglio);
+		this.borsaTest.addAttrezzo(this.torcia);
+		this.borsaTest.addAttrezzo(this.foglio);
 		assertNull(borsaTest.removeAttrezzo("Martello"));
 	}
 	
@@ -89,24 +89,25 @@ class BorsaTest {
 	@Test
 	public void testGetAttrezzoNoAttrezzi() {
 		//la borsa inizialmente non ha attrezzi
-		assertNull(borsaTest.getAttrezzo("Foglio"));
+		assertNull(this.borsaTest.getAttrezzo("Foglio"));
 	}
 	
 	@Test
 	public void testGetAttrezzo() {
 		//la borsa ha l'attrezzo cercato
-		borsaTest.addAttrezzo(torcia);
-		borsaTest.addAttrezzo(foglio);
-		borsaTest.addAttrezzo(martello);
-		assertEquals(foglio, borsaTest.getAttrezzo("Foglio"));
+		this.borsaTest.addAttrezzo(this.torcia);
+		this.borsaTest.addAttrezzo(this.foglio);
+		this.borsaTest.addAttrezzo(this.martello);
+		assertEquals(this.foglio, this.borsaTest.getAttrezzo("Foglio"));
 	}
 	
 	@Test
 	public void testGetAttrezzoNonPresente() {
 		//la borsa non ha l'attrezzo cercato
-		borsaTest.addAttrezzo(torcia);
-		borsaTest.addAttrezzo(foglio);
-		assertNull(borsaTest.getAttrezzo("Martello"));
+		this.borsaTest.addAttrezzo(this.torcia);
+		this.borsaTest.addAttrezzo(this.foglio);
+		assertNull(this.borsaTest.getAttrezzo("Martello"));
+		System.out.println("è");
 	}
 	
 }

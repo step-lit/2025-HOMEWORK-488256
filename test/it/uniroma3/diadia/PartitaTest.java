@@ -9,11 +9,11 @@ import it.uniroma3.diadia.ambienti.Stanza;
 
 public class PartitaTest {
 
-	Partita nuovaPartita;
-	
+	private Partita nuovaPartita;
+
 	@BeforeEach
 	public void setUp() {
-		nuovaPartita = new Partita();
+		this.nuovaPartita = new Partita();
 	}
 	
 	
@@ -24,23 +24,23 @@ public class PartitaTest {
 	@Test
 	public void testVintaAtrio() {
 		//inizialmente stanzaCorrente != stanzaVincente (e' nell'atrio)
-		assertFalse(nuovaPartita.vinta());
+		assertFalse(this.nuovaPartita.vinta());
 	}
 	
 	@Test
 	public void testVintaBiblioteca() {
 		//imposta la biblioteca (goal) come stanza corrente della partita
-		nuovaPartita.getLabirinto().setStanzaCorrente(nuovaPartita.getLabirinto().getStanzaVincente());
-		assertTrue(nuovaPartita.vinta());
-		assertTrue(nuovaPartita.isFinita()); //il test di isFinita era lo stesso di testVintaBiblioteca
+		nuovaPartita.getLabirinto().setStanzaCorrente(this.nuovaPartita.getLabirinto().getStanzaVincente());
+		assertTrue(this.nuovaPartita.vinta());
+		assertTrue(this.nuovaPartita.isFinita()); //il test di isFinita era lo stesso di testVintaBiblioteca
 	}
 	
 	@Test
 	public void testVintaAltra() {
 		//imposta un'altra stanza come stanza corrente della partita (che non sia né la stanza iniziale né il goal)
-		Stanza aulaN10 = nuovaPartita.getLabirinto().getStanzaCorrente().getStanzaAdiacente("sud"); //estraggo l'aula N10 dalla partita
-		nuovaPartita.getLabirinto().setStanzaCorrente(aulaN10);
-		assertFalse(nuovaPartita.vinta());
+		Stanza aulaN10 = this.nuovaPartita.getLabirinto().getStanzaCorrente().getStanzaAdiacente("sud"); //estraggo l'aula N10 dalla partita
+		this.nuovaPartita.getLabirinto().setStanzaCorrente(aulaN10);
+		assertFalse(this.nuovaPartita.vinta());
 	}
 	
 	
@@ -53,23 +53,23 @@ public class PartitaTest {
 	public void testIsFinitaAlloStart() {
 		//allo start nessun operando dell'operazione OR nel metodo da true
 		//finita || vinta() || cfu==0
-		assertFalse(nuovaPartita.isFinita());
+		assertFalse(this.nuovaPartita.isFinita());
 	}
 	
 	@Test
 	public void testIsFinitaFinita() {
 		//impostiamo la variabile finita a true
 		//finita || vinta() || cfu==0
-		nuovaPartita.setFinita();
-		assertTrue(nuovaPartita.isFinita());
+		this.nuovaPartita.setFinita();
+		assertTrue(this.nuovaPartita.isFinita());
 	}
 	
 	@Test
 	public void testIsFinitaCfu() {
 		//impostiamo il valore di cfu a zero
 		//finita || vinta() || cfu==0
-		nuovaPartita.getGiocatore().setCfu(0);
-		assertTrue(nuovaPartita.isFinita());
+		this.nuovaPartita.getGiocatore().setCfu(0);
+		assertTrue(this.nuovaPartita.isFinita());
 	}
 	
 }

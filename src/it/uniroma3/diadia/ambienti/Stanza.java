@@ -11,7 +11,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * @author docente di POO 
  * @see Attrezzo
  * @version base
-*/
+ */
 
 public class Stanza {
 	
@@ -120,6 +120,7 @@ public class Stanza {
 	* stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
 	* @return la rappresentazione stringa
 	*/
+    @Override
     public String toString() {
     	StringBuilder risultato = new StringBuilder();
     	risultato.append(this.nome);
