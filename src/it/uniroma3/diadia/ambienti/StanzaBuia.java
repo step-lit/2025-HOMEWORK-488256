@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.List;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBuia extends Stanza {
@@ -12,12 +14,8 @@ public class StanzaBuia extends Stanza {
 	}
 	@Override
 	public String getDescrizione() {
-		Attrezzo[] attrezzi = this.getAttrezzi();
-		for (int i = 0; i < attrezzi.length; i++) {
-			if (attrezzi[i] != null && attrezzi[i].getNome().equals(nomeAttrezzoRivelatore)) {
-				return this.toString();
-			}
-		}
+		if( this.getAttrezzi().containsKey(nomeAttrezzoRivelatore) )
+			return this.toString();
         return "qui c'è buio pesto";
     }
 }

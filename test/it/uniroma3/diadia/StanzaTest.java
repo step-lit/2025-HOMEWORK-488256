@@ -2,6 +2,10 @@ package it.uniroma3.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+import java.util.HashSet;
+import java.util.Set; 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +19,7 @@ class StanzaTest {
 	private Attrezzo martello;
 	private Attrezzo foglio;
 	private Attrezzo torcia;
+	private Set<String> direzioni;
 	
 	
 	@BeforeEach
@@ -25,6 +30,7 @@ class StanzaTest {
 		this.stanzaNord = new Stanza("Stanza nord");
 		this.stanzaTest.impostaStanzaAdiacente("nord", this.stanzaNord); //stanzaTest ha la direzione nord (verso stanzaNord)
 		this.stanzaNord.impostaStanzaAdiacente("sud", this.stanzaTest); //stanzaNord ha la direzione sud (verso stanzaTest)
+		this.direzioni = new HashSet<String>();
 		
 		this.martello = new Attrezzo("Martello", 2);
 		this.foglio = new Attrezzo("Foglio", 0);
@@ -95,7 +101,8 @@ class StanzaTest {
 	public void testAddAttrezzoFull() {
 		//aggiungo 10 attrezzi (numero massimo): la stanza a quel punto ha finito lo spazio per gli attrezzi
 		for(int i = 0; i<10; i++) {
-			this.stanzaTest.addAttrezzo(this.martello);
+			Integer numero = i;
+			this.stanzaTest.addAttrezzo(new Attrezzo(numero.toString(),i));
 		}
 		
 		Attrezzo chiaveInglese = new Attrezzo("Chiave Inglese", 1);
@@ -112,29 +119,27 @@ class StanzaTest {
 	@Test
 	public void testGetDirezioniNord() {
 		//stanzaTest ha solo direzione nord da setUp
-		String[] test = new String[1];
-		test[0] = "nord";
-		assertArrayEquals(test, this.stanzaTest.getDirezioni());
+		this.direzioni.add("nord");
+		assertEquals(this.direzioni, this.stanzaTest.getDirezioni());
 	}
 	
 	@Test
 	public void testGetDirezioniStanzaNord() {
 		//stanzaNord ha solo la direzione sud da setUp (verso stanzaTest)
 		//se però non viene impostata la direzione sud di stanzaNord non si può tornare indietro
-		assertTrue(this.stanzaNord.getDirezioni().length == 1);
+		assertTrue(this.stanzaNord.getDirezioni().size() == 1);
 	}
 	
 	@Test
 	public void testGetDirezioniNordEst() {
 		//stanzaTest ottiene direzione est oltre a nord
-		String[] test = new String[2];
-		test[0] = "nord";
-		test[1] = "est";
+		this.direzioni.add("est");
+		this.direzioni.add("nord");
 		
 		Stanza stanzaEst = new Stanza("Stanza est");
 		stanzaTest.impostaStanzaAdiacente("est", stanzaEst);
 		
-		assertArrayEquals(test, this.stanzaTest.getDirezioni());
+		assertEquals(this.direzioni, this.stanzaTest.getDirezioni());
 	}
 	
 	

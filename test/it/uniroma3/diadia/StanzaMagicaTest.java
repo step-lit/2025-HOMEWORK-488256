@@ -1,6 +1,10 @@
 package it.uniroma3.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.ambienti.StanzaMagica;
@@ -12,18 +16,22 @@ class StanzaMagicaTest {
 	private Attrezzo foglio;
 	private Attrezzo torcia;
 	private StanzaMagica stanzaTest;
+	private Map<String, Attrezzo> attrezzi;
 	
 	
 	@BeforeEach
 	void setUp() {
+		
 		this.martello = new Attrezzo("Martello", 2);
 		this.foglio = new Attrezzo("Foglio", 0);
 		this.torcia = new Attrezzo("Torcia", 1);
 		
+		this.attrezzi = new HashMap<>();
+		
 		this.stanzaTest = new StanzaMagica("N11"); //soglia di default, 3 attrezzi
-		this.stanzaTest.addAttrezzo(martello);
-		this.stanzaTest.addAttrezzo(foglio);
-		this.stanzaTest.addAttrezzo(torcia);
+		this.stanzaTest.addAttrezzo(this.martello);
+		this.stanzaTest.addAttrezzo(this.foglio);
+		this.stanzaTest.addAttrezzo(this.torcia);
 		
 	}
 	
@@ -35,21 +43,18 @@ class StanzaMagicaTest {
 	
 	@Test
 	void testaddAttrezzoPreSoglia() {
-		
-		Attrezzo[] attrezzi = new Attrezzo[10];
-		attrezzi[0] = this.martello;
-		attrezzi[1] = this.foglio;
-		attrezzi[2] = this.torcia;
-		
-		assertArrayEquals(attrezzi, this.stanzaTest.getAttrezzi());
+		this.attrezzi.put(this.martello.getNome(), this.martello);
+		this.attrezzi.put(this.foglio.getNome(), this.foglio);
+		this.attrezzi.put(this.torcia.getNome(), this.torcia);
+		assertEquals(attrezzi, this.stanzaTest.getAttrezzi());
 	}
 
 	@Test
 	void testaddAttrezzoSogliaSuperata() {
 		
 		this.stanzaTest.addAttrezzo(torcia); //questo attrezzo viene modificato magicamente
-		assertEquals("aicroT", this.stanzaTest.getAttrezzi()[3].getNome());
-		assertEquals(2, this.stanzaTest.getAttrezzi()[3].getPeso());
+		assertTrue(this.stanzaTest.getAttrezzi().containsKey("aicroT"));
+		assertEquals(2, this.stanzaTest.getAttrezzi().get("aicroT").getPeso());
 		
 	}
 	
@@ -57,12 +62,15 @@ class StanzaMagicaTest {
 	void testaddAttrezzoSogliaCustomSuperata() {
 		
 		this.stanzaTest = new StanzaMagica("N11",  6); //soglia pari a 6
-		for(int i = 0; i < 6; i++)
-			this.stanzaTest.addAttrezzo(torcia); //torcia viene aggiunto 6 volte
+		for(int i = 0; i < 6; i++) {
+			Integer numero = i;
+			Attrezzo attrezzo = new Attrezzo(numero.toString(),i);
+			this.stanzaTest.addAttrezzo(attrezzo); //torcia viene aggiunto 6 volte
+		}
 		
 		this.stanzaTest.addAttrezzo(martello);
-		assertEquals("olletraM", this.stanzaTest.getAttrezzi()[6].getNome());
-		assertEquals(4, this.stanzaTest.getAttrezzi()[6].getPeso());
+		assertTrue(this.stanzaTest.getAttrezzi().containsKey("olletraM"));
+		assertEquals(4, this.stanzaTest.getAttrezzi().get("olletraM").getPeso());
 	}
 	
 }

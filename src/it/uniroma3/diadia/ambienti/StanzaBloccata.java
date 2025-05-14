@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.List;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBloccata extends Stanza {
@@ -16,11 +18,8 @@ public class StanzaBloccata extends Stanza {
 	@Override
 	public Stanza getStanzaAdiacente(String direzione) {
 		if(direzione == dirBloccata) {
-			Attrezzo[] attrezzi = this.getAttrezzi();
-			for (int i = 0; i < attrezzi.length; i++) {
-				if (attrezzi[i] != null && attrezzi[i].getNome().equals(nomeAttrezzoSbloccante)) {
+			if (this.getAttrezzi().containsKey(nomeAttrezzoSbloccante) ) {
 					return super.getStanzaAdiacente(direzione);
-				}
 			}
 			return this;
 		}
