@@ -41,9 +41,14 @@ public class StanzaMagica extends Stanza {
 		return attrezzo;
 	}
 	
+	public int getSogliaMagica() {
+		return this.sogliaMagica;
+	}
+	
 	@Override
 	public boolean isMagica() {
 		return true; //se il tipo dinamico è StanzaMagica viene eseguito questo
 	}
+	
 	
 }

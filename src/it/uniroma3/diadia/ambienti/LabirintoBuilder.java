@@ -1,11 +1,15 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class LabirintoBuilder extends Labirinto {
 
+	private static final Set<String> DIREZIONI_VALIDE = new HashSet<>(Arrays.asList("nord", "sud", "est", "ovest"));
 	Stanza ultimaStanzaAggiunta;
 	
 	public LabirintoBuilder() {
@@ -29,6 +33,9 @@ public class LabirintoBuilder extends Labirinto {
 	}
 	
 	public LabirintoBuilder addAdiacenza(String stanza, String stanzaAdiacente, String direzione) {
+		if(!DIREZIONI_VALIDE.contains(direzione.toLowerCase())) {
+			return this;
+		}
 		Stanza adiacente = this.getStanzaLabirinto(stanzaAdiacente);
 		Stanza cercata = this.getStanzaLabirinto(stanza);
 		cercata.impostaStanzaAdiacente(direzione, adiacente);

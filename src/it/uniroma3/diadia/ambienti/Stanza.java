@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -167,6 +168,19 @@ public class Stanza {
 
 	public AbstractPersonaggio getPersonaggio() {
 		return personaggio;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+	    if (this == o) return true;
+	    if (o == null || !(o instanceof Stanza)) return false;
+	    Stanza stanza = (Stanza) o;
+	    return this.getNome().equals(stanza.getNome());
+	}
+
+	@Override
+	public int hashCode() {
+	    return this.getClass().hashCode() + this.getNome().hashCode();
 	}
 	
 }

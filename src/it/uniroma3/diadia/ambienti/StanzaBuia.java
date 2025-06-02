@@ -18,4 +18,9 @@ public class StanzaBuia extends Stanza {
 			return this.toString();
         return "qui c'è buio pesto";
     }
+	
+	public String getAttrezzoRivelatore() {
+		return this.nomeAttrezzoRivelatore;
+	}
+	
 }

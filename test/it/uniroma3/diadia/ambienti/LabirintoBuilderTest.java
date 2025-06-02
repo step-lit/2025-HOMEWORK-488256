@@ -52,7 +52,7 @@ public class LabirintoBuilderTest {
 				.getLabirinto();
 		int size = monolocale.getStanzaIniziale().getAttrezzi().size();
 		assertTrue(size==1);
-		assertEquals(Arrays.asList(new Attrezzo("spada",1)),monolocale.getStanzaIniziale().getAttrezzi());
+		assertEquals(Arrays.asList(new Attrezzo("spada",1)),new ArrayList<Attrezzo>(monolocale.getStanzaIniziale().getAttrezzi().values()));
 	}
 	
 	@Test
@@ -64,8 +64,8 @@ public class LabirintoBuilderTest {
 				.addAdiacenza(nomeStanzaVincente, nomeStanzaIniziale, "sud")
 				.getLabirinto();
 		assertEquals(bilocale.getStanzaVincente(),bilocale.getStanzaIniziale().getStanzaAdiacente("nord"));
-		assertEquals(Collections.singletonList("nord"),bilocale.getStanzaIniziale().getDirezioni());
-		assertEquals(Collections.singletonList("sud"),bilocale.getStanzaVincente().getDirezioni());
+		assertEquals(Collections.singletonList("nord"),new ArrayList<String>(bilocale.getStanzaIniziale().getDirezioni()));
+		assertEquals(Collections.singletonList("sud"),new ArrayList<String>(bilocale.getStanzaVincente().getDirezioni()));
 	}
 	
 	@Test
@@ -256,7 +256,6 @@ public class LabirintoBuilderTest {
 		assertEquals(new Attrezzo(nomeAttrezzo1,peso1), listaStanze.get(nomeStanzaMagica).getAttrezzo(nomeAttrezzo1));
 	}
 	
-	
 	@Test
 	public void testLabirintoConStanzaBloccata_ConPassepartout() {
 		this.labirintoBuilder
@@ -296,7 +295,7 @@ public class LabirintoBuilderTest {
 				.addStanza("corridoio")
 				.addAttrezzo("chiave", 1)
 				.addAttrezzo("lanterna", 1)
-				.addStanzaBloccata("corridoio bloccato","nord","chiave")
+				.addStanzaBloccata("corridoio bloccato", "chiave", "nord")
 				.addStanzaMagica("stanza magica", 1)
 				.addStanzaBuia("stanza buia","lanterna")
 				.addStanza("Aula 1")
@@ -326,7 +325,7 @@ public class LabirintoBuilderTest {
 		assertEquals(mapAdiacenti,corridoio.getMapStanzeAdiacenti());
 		Attrezzo a1 = new Attrezzo("chiave",1);
 		Attrezzo a2 = new Attrezzo("lanterna",1);
-		assertEquals(Arrays.asList(a1,a2),corridoio.getAttrezzi());
+		assertEquals(Arrays.asList(a1,a2),new ArrayList<Attrezzo>(corridoio.getAttrezzi().values()));
 	}
 }
  

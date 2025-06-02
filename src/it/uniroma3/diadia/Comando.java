@@ -26,11 +26,11 @@ public class Comando {
 
 		// prima parola: nome del comando
 		if (scannerDiParole.hasNext())
-			this.nome = scannerDiParole.next(); 
+			this.nome = scannerDiParole.next().toLowerCase(); 
 
 		// seconda parola: eventuale parametro
 		if (scannerDiParole.hasNext())
-			this.parametro = scannerDiParole.next();
+			this.parametro = scannerDiParole.next().toLowerCase();
     }
 
     public String getNome() {
