@@ -43,15 +43,10 @@ public class Attrezzo {
 		return this.peso;
 	}
 	
-	/**
-	 * Impone il peso dell'attrezzo
-	 * @return 
-	 * @return il peso dell'attrezzo
-	 */
-	public void setPeso(int NuovoPeso) {
-		this.peso = NuovoPeso;
+	public void setPeso(int peso) {
+		this.peso = peso;
 	}
-
+	
 	/**
 	 * Restituisce una rappresentazione stringa di questo attrezzo
 	 * @return la rappresentazione stringa
@@ -59,5 +54,17 @@ public class Attrezzo {
 	public String toString() {
 		return this.nome+" ("+this.peso+"kg)";
 	}
-
+	
+	@Override
+	public boolean equals(Object o) {
+		if( this == o ) return true;
+		if( o == null || this.getClass() != o.getClass()) return false;
+		Attrezzo a = (Attrezzo) o;
+		return this.getNome().equals(a.getNome()) && this.getPeso() == a.getPeso();
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getClass().hashCode() + this.getNome().hashCode() + this.getPeso();
+	}
 }

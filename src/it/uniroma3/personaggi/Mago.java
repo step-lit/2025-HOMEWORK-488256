@@ -33,7 +33,7 @@ public class Mago extends AbstractPersonaggio {
 				+ "E voilà");
 		if(attrezzo.getPeso() != 1) attrezzo.setPeso(attrezzo.getPeso()/2);
 		else messaggio.append("\nMi spiace di nuovo, ma l'attrezzo ha già peso minimo...");
-		partita.getLabirinto().getLabirinto()getStanzaCorrente().addAttrezzo(attrezzo);
+		partita.getLabirinto().getLabirinto().getStanzaCorrente().addAttrezzo(attrezzo);
 		return messaggio.toString();
 	}
 }

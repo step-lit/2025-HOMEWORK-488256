@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
@@ -14,15 +15,18 @@ import java.util.List;
 class IOSimulatorTest {
 
 	DiaDia gioco;
-	ArrayList<String> comandi;
+	List<String> comandi;
 	IOSimulator simulator;
 	LabirintoBuilder labirintoTest;
+	String nomeStanzaIniziale;
+	String nomeStanzaVincente;
 	
 	@BeforeEach
 	void setUp() {
 		comandi = new ArrayList<>();
 		labirintoTest = new LabirintoBuilder();
-		labirintoTest.addStanzaIniziale(new Stanza(""));
+		nomeStanzaIniziale = "Atrio";
+		nomeStanzaVincente = "Uscita";
 	}
 	
 	
@@ -31,7 +35,14 @@ class IOSimulatorTest {
 		comandi.add("vai nord");
 		
 		simulator = new IOSimulator(comandi);
-		gioco = new DiaDia(simulator);
+		Labirinto labirinto = labirintoTest
+				.addStanzaIniziale(nomeStanzaIniziale)
+				.addStanzaVincente(nomeStanzaVincente)
+				.addAdiacenza(nomeStanzaIniziale, nomeStanzaVincente, "nord")
+				.addAdiacenza(nomeStanzaVincente, nomeStanzaIniziale, "sud")
+				.getLabirinto();
+		
+		gioco = new DiaDia(labirinto, simulator);
 		gioco.gioca();
 		
 		List<String> output = simulator.getOutput();
@@ -45,7 +56,17 @@ class IOSimulatorTest {
 		comandi.add("vai nord");
 		
 		simulator = new IOSimulator(comandi);
-		gioco = new DiaDia(simulator);
+		Labirinto labirinto = labirintoTest
+				.addStanzaIniziale(nomeStanzaIniziale)
+				.addStanzaVincente(nomeStanzaVincente)
+				.addStanza("Corridoio")
+				.addAdiacenza(nomeStanzaIniziale, "Corridoio", "est")
+				.addAdiacenza("Corridoio", nomeStanzaIniziale, "ovest")
+				.addAdiacenza("Corridoio", nomeStanzaVincente, "sud")
+				.addAdiacenza(nomeStanzaVincente, "Corridoio", "sud")
+				.getLabirinto();
+		
+		gioco = new DiaDia(labirinto, simulator);
 		gioco.gioca();
 		
 		List<String> output = simulator.getOutput();
@@ -64,7 +85,20 @@ class IOSimulatorTest {
 		comandi.add("vai nord");
 		
 		simulator = new IOSimulator(comandi);
-		gioco = new DiaDia(simulator);
+		Labirinto labirinto = labirintoTest
+				.addStanzaIniziale(nomeStanzaIniziale)
+				.addAttrezzo("osso", 1)
+				.addStanza("Aula N10")
+				.addAttrezzo("lanterna", 3)
+				.addStanza("Aula N11")
+				.addStanzaVincente(nomeStanzaVincente)
+				.addAdiacenza(nomeStanzaIniziale, "Aula N10", "sud")
+				.addAdiacenza("Aula N10", "Aula N11", "est")
+				.addAdiacenza("Aula N11", nomeStanzaIniziale, "ovest")
+				.addAdiacenza("Atrio", nomeStanzaVincente, "nord")
+				.getLabirinto();
+		
+		gioco = new DiaDia(labirinto, simulator);
 		gioco.gioca();
 		
 		List<String> output = simulator.getOutput();
@@ -77,7 +111,7 @@ class IOSimulatorTest {
 		assertTrue(output.contains("Contenuto borsa (3kg/10kg): lanterna (3kg) "));
 		assertTrue(output.contains("Atrio"));
 		assertTrue(output.contains("Borsa vuota"));
-		assertTrue(output.contains("Biblioteca"));
+		assertTrue(output.contains("Uscita"));
 		assertTrue(output.contains("Hai vinto!"));
 	}
 	

@@ -63,5 +63,9 @@ public class Partita {
 	public Giocatore getGiocatore() {
 		return this.giocatore;
 	}
+
+	public Stanza getStanzaCorrente() {
+		return labirinto.getStanzaCorrente();
+	}
 	
 }
