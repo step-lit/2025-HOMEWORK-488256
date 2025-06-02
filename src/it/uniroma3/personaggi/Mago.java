@@ -28,10 +28,12 @@ public class Mago extends AbstractPersonaggio {
 	}
 	@Override
 	public String riceviRegalo(Attrezzo attrezzo, Partita partita) {
-		StringBuilder messaggio = new StringBuilder("Troppo gentile! Oibò, purtroppo non posso portare con me altri oggetti...\nPer ringraziarti dimezzerò il peso dell'attrezzo, cosi che possa ingombrare meno!\nE voilà");
+		StringBuilder messaggio = new StringBuilder("Troppo gentile! Oibò, purtroppo non posso portare con me altri oggetti...\n"
+				+ "Per ringraziarti dimezzerò il peso dell'attrezzo, cosi che possa ingombrare meno!\n"
+				+ "E voilà");
 		if(attrezzo.getPeso() != 1) attrezzo.setPeso(attrezzo.getPeso()/2);
 		else messaggio.append("\nMi spiace di nuovo, ma l'attrezzo ha già peso minimo...");
-		partita.getLabirinto().getStanzaCorrente().addAttrezzo(attrezzo);
+		partita.getLabirinto().getLabirinto()getStanzaCorrente().addAttrezzo(attrezzo);
 		return messaggio.toString();
 	}
 }
