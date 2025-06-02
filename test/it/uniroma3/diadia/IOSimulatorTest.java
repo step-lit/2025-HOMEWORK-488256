@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Stanza;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +16,13 @@ class IOSimulatorTest {
 	DiaDia gioco;
 	ArrayList<String> comandi;
 	IOSimulator simulator;
+	LabirintoBuilder labirintoTest;
 	
 	@BeforeEach
 	void setUp() {
 		comandi = new ArrayList<>();
+		labirintoTest = new LabirintoBuilder();
+		labirintoTest.addStanzaIniziale(new Stanza(""));
 	}
 	
 	

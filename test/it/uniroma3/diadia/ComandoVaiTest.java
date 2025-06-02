@@ -18,7 +18,7 @@ class ComandoVaiTest {
 	void setUp() {
 		this.io = new IOConsole();
 		this.comando = new ComandoVai(this.io); //non viene inizialmente impostato il parametro
-		this.partita = new Partita();
+		this.partita = new Partita(null);
 		this.iniziale = this.partita.getLabirinto().getStanzaCorrente(); //all'inizio e' l'atrio
 	}
 	
