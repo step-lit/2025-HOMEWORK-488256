@@ -36,16 +36,20 @@ public class ComandoRegala implements Comando {
 			io.mostraMessaggio(partita.getGiocatore().getBorsa().toString());
 		} else io.mostraMessaggio(MESSAGGIO_CON_CHI);
 	}
+	
 	public String getMessaggio() {
 		return this.messaggio;
 	}
+	
 	@Override
 	public void setParametro(String parametro) {}
+	
 	@Override
 	public String getNome() {
 		// TODO Auto-generated method stub
 		return "interagisci";
 	}
+	
 	@Override
 	public String getParametro() {
 		// TODO Auto-generated method stub

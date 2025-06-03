@@ -1,14 +1,9 @@
 package it.uniroma3.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.ambienti.Stanza;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +12,14 @@ class IOSimulatorTest {
 	DiaDia gioco;
 	List<String> comandi;
 	IOSimulator simulator;
-	LabirintoBuilder labirintoTest;
+	Labirinto.LabirintoBuilder labirintoTest;
 	String nomeStanzaIniziale;
 	String nomeStanzaVincente;
 	
 	@BeforeEach
 	void setUp() {
 		comandi = new ArrayList<>();
-		labirintoTest = new LabirintoBuilder();
+		labirintoTest = new Labirinto.LabirintoBuilder();
 		nomeStanzaIniziale = "Atrio";
 		nomeStanzaVincente = "Uscita";
 	}
@@ -40,7 +35,7 @@ class IOSimulatorTest {
 				.addStanzaVincente(nomeStanzaVincente)
 				.addAdiacenza(nomeStanzaIniziale, nomeStanzaVincente, "nord")
 				.addAdiacenza(nomeStanzaVincente, nomeStanzaIniziale, "sud")
-				.getLabirinto();
+				.build();
 		
 		gioco = new DiaDia(labirinto, simulator);
 		gioco.gioca();
@@ -64,7 +59,7 @@ class IOSimulatorTest {
 				.addAdiacenza("Corridoio", nomeStanzaIniziale, "ovest")
 				.addAdiacenza("Corridoio", nomeStanzaVincente, "sud")
 				.addAdiacenza(nomeStanzaVincente, "Corridoio", "sud")
-				.getLabirinto();
+				.build();
 		
 		gioco = new DiaDia(labirinto, simulator);
 		gioco.gioca();
@@ -96,7 +91,7 @@ class IOSimulatorTest {
 				.addAdiacenza("Aula N10", "Aula N11", "est")
 				.addAdiacenza("Aula N11", nomeStanzaIniziale, "ovest")
 				.addAdiacenza("Atrio", nomeStanzaVincente, "nord")
-				.getLabirinto();
+				.build();
 		
 		gioco = new DiaDia(labirinto, simulator);
 		gioco.gioca();
