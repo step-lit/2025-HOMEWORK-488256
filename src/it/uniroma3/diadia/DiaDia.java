@@ -1,12 +1,6 @@
 package it.uniroma3.diadia;
 
-
-import java.util.Scanner;
-
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
@@ -75,11 +69,11 @@ public class DiaDia {
 	
 	public static void main(String[] argc) throws Throwable {
 		IO io = new IOConsole();
-		Labirinto labirinto = new LabirintoBuilder()
+		Labirinto labirinto = new Labirinto.LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.addStanzaVincente("Biblioteca")
 				.addAdiacenza("LabCampusOne","Biblioteca","ovest")
-				.getLabirinto();
+				.build();
 		
 		DiaDia gioco = new DiaDia(labirinto,io); //creando DiaDia inizializza una nuova partita (costruttore)
 		gioco.gioca();

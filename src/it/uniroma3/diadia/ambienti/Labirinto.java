@@ -1,9 +1,16 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-
+import java.util.Set;
+import it.uniroma3.diadia.CaricatoreLabirinto;
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+
+import java.io.FileReader;
 
 public class Labirinto {
 	
@@ -15,48 +22,17 @@ public class Labirinto {
 	public Labirinto() {
 		this.stanzeLabirinto = new HashMap<>();
 	}
-
-  
-	/**
-     * Crea tutte le stanze e le porte di collegamento
-     */
-
-//	private void creaStanze() {
-//
-//		/* crea gli attrezzi */
-//    	Attrezzo lanterna = new Attrezzo("lanterna",3);
-//		Attrezzo osso = new Attrezzo("osso",1);
-//    	
-//		/* crea stanze del labirinto */
-//		Stanza atrio = new Stanza("Atrio");
-//		Stanza aulaN11 = new Stanza("Aula N11");
-//		Stanza aulaN10 = new Stanza("Aula N10");
-//		Stanza laboratorio = new Stanza("Laboratorio Campus");
-//		Stanza biblioteca = new Stanza("Biblioteca");
-//		
-//		/* collega le stanze */
-//		atrio.impostaStanzaAdiacente("nord", biblioteca);
-//		atrio.impostaStanzaAdiacente("est", aulaN11);
-//		atrio.impostaStanzaAdiacente("sud", aulaN10);
-//		atrio.impostaStanzaAdiacente("ovest", laboratorio);
-//		aulaN11.impostaStanzaAdiacente("est", laboratorio);
-//		aulaN11.impostaStanzaAdiacente("ovest", atrio);
-//		aulaN10.impostaStanzaAdiacente("nord", atrio);
-//		aulaN10.impostaStanzaAdiacente("est", aulaN11);
-//		aulaN10.impostaStanzaAdiacente("ovest", laboratorio);
-//		laboratorio.impostaStanzaAdiacente("est", atrio);
-//		laboratorio.impostaStanzaAdiacente("ovest", aulaN11);
-//		biblioteca.impostaStanzaAdiacente("sud", atrio);
-//
-//        /* pone gli attrezzi nelle stanze */
-//		aulaN10.addAttrezzo(lanterna);
-//		atrio.addAttrezzo(osso);
-//
-//		// il gioco comincia nell'atrio
-//        stanzaCorrente = atrio;  
-//		stanzaVincente = biblioteca;
-//    }
 	
+	public static Labirinto creaDaFile(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+        CaricatoreLabirinto caricatore = new CaricatoreLabirinto(new FileReader(nomeFile));
+        caricatore.carica();
+        Labirinto lab = caricatore.getLabirintoCostruito();
+        
+        if (lab.stanzaIniziale == null) {
+            throw new IllegalStateException("Labirinto costruito senza stanza iniziale.");
+        }
+        return lab;
+    }
 	
 	public void setStanzaVincente(Stanza stanzaVincente) {
 		this.stanzaVincente = stanzaVincente;
@@ -98,4 +74,95 @@ public class Labirinto {
 	public Labirinto getLabirinto() {
 		return this;
 	}
+	
+	public static class LabirintoBuilder {
+        private Labirinto labirinto;
+        private Stanza ultimaStanzaAggiunta;
+        private static final Set<String> DIREZIONI_VALIDE = new HashSet<>(Arrays.asList("nord", "sud", "est", "ovest"));
+
+        public LabirintoBuilder() {
+            this.labirinto = new Labirinto(); // Usa il costruttore privato di Labirinto
+        }
+
+        public LabirintoBuilder addStanzaIniziale(String nome) {
+            Stanza stanza = new Stanza(nome);
+            this.labirinto.stanzaIniziale = stanza;
+            this.labirinto.stanzeLabirinto.put(nome, stanza);
+            this.ultimaStanzaAggiunta = stanza;
+            return this;
+        }
+
+        public LabirintoBuilder addStanzaVincente(String nome) {
+            Stanza stanza = new Stanza(nome);
+            this.labirinto.stanzaVincente = stanza;
+            this.labirinto.stanzeLabirinto.put(nome, stanza);
+            this.ultimaStanzaAggiunta = stanza;
+            return this;
+        }
+
+        public LabirintoBuilder addStanza(String nome) {
+            Stanza stanza = new Stanza(nome);
+            this.labirinto.stanzeLabirinto.put(nome, stanza);
+            this.ultimaStanzaAggiunta = stanza;
+            return this;
+        }
+        
+        public LabirintoBuilder addAdiacenza(String nomeStanzaPartenza, String nomeStanzaAdiacente, String direzione) {
+        	if(!DIREZIONI_VALIDE.contains(direzione.toLowerCase())) {
+        		System.err.println("Direzione specificata non valida. La stanza adiacente a " + nomeStanzaPartenza + "non è stata aggiunta.");
+    			return this;
+    		}
+            Stanza stanzaPartenza = this.labirinto.stanzeLabirinto.get(nomeStanzaPartenza);
+            Stanza stanzaAdiacente = this.labirinto.stanzeLabirinto.get(nomeStanzaAdiacente);
+            stanzaPartenza.impostaStanzaAdiacente(direzione, stanzaAdiacente);
+            return this;
+        }
+
+        public LabirintoBuilder addAttrezzo(String nomeAttrezzo, int peso) {
+            if (this.ultimaStanzaAggiunta == null) {
+                throw new IllegalStateException("Tentativo di aggiungere attrezzo senza aver prima aggiunto/selezionato una stanza.");
+            }
+            this.ultimaStanzaAggiunta.addAttrezzo(new Attrezzo(nomeAttrezzo, peso));
+            return this;
+        }
+
+        public LabirintoBuilder addStanzaMagica(String nome, int soglia) {
+            StanzaMagica stanza = new StanzaMagica(nome, soglia);
+            this.labirinto.stanzeLabirinto.put(nome, stanza); 
+            this.ultimaStanzaAggiunta = stanza;
+            return this;
+        }
+        
+        public LabirintoBuilder addStanzaBloccata(String nome, String nomeAttr, String direzione) {
+    		StanzaBloccata stanza = new StanzaBloccata(nome,nomeAttr,direzione);
+    		this.labirinto.stanzeLabirinto.put(nome, stanza); 
+    		this.ultimaStanzaAggiunta = stanza;
+    		return this;
+    	}
+    	
+    	public LabirintoBuilder addStanzaBuia(String nome, String nomeAttr) {
+    		StanzaBuia stanza = new StanzaBuia(nome,nomeAttr);
+    		this.labirinto.stanzeLabirinto.put(nome, stanza); 
+    		this.ultimaStanzaAggiunta = stanza;
+    		return this;
+    	}
+
+
+        public Map<String, Stanza> getListaStanze() {
+            return new HashMap<>(this.labirinto.stanzeLabirinto);
+        }
+        
+        public Stanza getStanza(String nome) {
+            return this.labirinto.stanzeLabirinto.get(nome);
+        }
+        
+        public Labirinto build() {
+        	if (this.labirinto.stanzaIniziale == null) {
+                throw new IllegalStateException("Labirinto non valido: stanza iniziale non impostata.");
+            }
+        	this.labirinto.stanzaCorrente = this.labirinto.stanzaIniziale;
+            return this.labirinto;
+        }
+    }	
+	
 }

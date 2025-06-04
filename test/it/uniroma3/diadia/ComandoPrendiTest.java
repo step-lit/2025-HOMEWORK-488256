@@ -1,12 +1,9 @@
 package it.uniroma3.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-//import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.ComandoPrendi;
 
@@ -17,7 +14,7 @@ class ComandoPrendiTest {
 	private Partita partita;
 //	private Stanza stanzaTest;
 	private Attrezzo foglio;
-	private LabirintoBuilder labirintoTest;
+	private Labirinto.LabirintoBuilder labirintoTest;
 //	private Attrezzo torcia;
 //	private Attrezzo martello;
 //	private Attrezzo[] attrezziStanza;
@@ -27,9 +24,9 @@ class ComandoPrendiTest {
 	void setUp() {
 		this.io = new IOConsole();
 		this.comando = new ComandoPrendi(this.io); //all'inizio non ha un parametro
-		labirintoTest = new LabirintoBuilder();
+		labirintoTest = new Labirinto.LabirintoBuilder();
 		labirintoTest.addStanzaIniziale("stanza1");
-		this.partita = new Partita(labirintoTest);
+		this.partita = new Partita(labirintoTest.build());
 //		this.stanzaTest = new Stanza("test");
 		this.foglio = new Attrezzo("Foglio", 0);
 //		this.torcia = new Attrezzo("Torcia", 1);
