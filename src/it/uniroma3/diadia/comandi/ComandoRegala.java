@@ -47,7 +47,9 @@ public class ComandoRegala implements Comando {
 	}
 	
 	@Override
-	public void setParametro(String parametro) {}
+	public void setParametro(String parametro) {
+		nomeAttrezzo = parametro;
+	}
 	
 	@Override
 	public String getNome() {

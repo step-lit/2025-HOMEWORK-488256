@@ -15,6 +15,7 @@ import it.uniroma3.personaggi.AbstractPersonaggio;
 
 class ComandoRegalaTest {
 
+	private static final String DONO = "dono";
 	private IO io;
 	private Stanza iniziale;
 	private ComandoRegala comando;
@@ -32,15 +33,17 @@ class ComandoRegalaTest {
 		this.partita.getLabirinto().addStanzaLabirinto(iniziale);
 		this.partita.getLabirinto().setStanzaCorrente(iniziale);
 		this.partita.getStanzaCorrente().aggiungiPersonaggio(Fake);
-		this.giocatore = new Giocatore();
-		this.giocatore.getBorsa().addAttrezzo(new Attrezzo("dono", 0));
+		this.giocatore = partita.getGiocatore();
+		this.giocatore.getBorsa().addAttrezzo(new Attrezzo(DONO, 2));
+		this.comando.setParametro(DONO);
+		
 	}
 
 	@Test
 	void testRegala() {
-		assertTrue(this.giocatore.getBorsa().hasAttrezzo("dono"));
+		assertTrue(this.giocatore.getBorsa().hasAttrezzo(DONO));
 		comando.esegui(partita);
-		assertFalse(this.giocatore.getBorsa().hasAttrezzo("dono"));
+		assertFalse(this.giocatore.getBorsa().hasAttrezzo(DONO));
 	}
 
 }
