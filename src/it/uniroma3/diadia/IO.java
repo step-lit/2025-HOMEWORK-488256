@@ -1,6 +1,8 @@
 package it.uniroma3.diadia;
 
-public interface IO {
+import java.io.Closeable;
+
+public interface IO extends Closeable{
 	
 	public void mostraMessaggio(String msg);
 	public String leggiRiga();

@@ -39,7 +39,7 @@ public class DiaDia {
 
 	public void gioca() throws Throwable {
 		String istruzione; 
-		
+
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);		
 		do		
 			istruzione = io.leggiRiga();
@@ -57,7 +57,7 @@ public class DiaDia {
 		if(istruzione == null) return true;
 		Comando comandoDaEseguire;
 		FabbricaDiComandiRiflessiva factory = new FabbricaDiComandiRiflessiva(this.io);
-		
+
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.vinta())
@@ -66,16 +66,18 @@ public class DiaDia {
 			io.mostraMessaggio("Hai esaurito i CFU...");
 		return this.partita.isFinita();
 	}
-	
+
 	public static void main(String[] argc) throws Throwable {
-		IO io = new IOConsole();
-		Labirinto labirinto = new Labirinto.LabirintoBuilder()
-				.addStanzaIniziale("LabCampusOne")
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("LabCampusOne","Biblioteca","ovest")
-				.build();
-		
-		DiaDia gioco = new DiaDia(labirinto,io); //creando DiaDia inizializza una nuova partita (costruttore)
-		gioco.gioca();
+		try (IO io = new IOConsole()){
+			Labirinto labirinto = new Labirinto.LabirintoBuilder()
+					.addStanzaIniziale("LabCampusOne")
+					.addStanzaVincente("Biblioteca")
+					.addAdiacenza("LabCampusOne","Biblioteca","ovest")
+					.build();
+
+			DiaDia gioco = new DiaDia(labirinto,io); //creando DiaDia inizializza una nuova partita (costruttore)
+			gioco.gioca();
+		}
+		//il finally{this.io.close();} lo fa in automatico
 	}
 }

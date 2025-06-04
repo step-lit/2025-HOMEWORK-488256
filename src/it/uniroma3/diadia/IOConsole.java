@@ -1,4 +1,5 @@
 package it.uniroma3.diadia;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class IOConsole implements IO {
@@ -13,7 +14,7 @@ public class IOConsole implements IO {
 	}
 
 	public IOConsole() {
-
+		this.scannerDiLinee = new Scanner(System.in);
 	}
 
 	@Override
@@ -24,10 +25,13 @@ public class IOConsole implements IO {
 	@Override
 	public String leggiRiga() {
 		String riga;
-		Scanner scannerDiLinee = new Scanner(System.in);
 		riga = scannerDiLinee.nextLine();
-		//scannerDiLinee.close();
 		return riga;
+	}
+
+	@Override
+	public void close() throws IOException {
+		this.scannerDiLinee.close();
 	}
 
 }

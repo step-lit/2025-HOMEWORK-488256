@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.ComandoRegala;
@@ -25,10 +26,13 @@ class ComandoRegalaTest {
 	void setUp() {
 		this.io = new IOConsole();
 		this.comando = new ComandoRegala(this.io); //non viene inizialmente impostato il parametro
-		this.partita = new Partita(null);
-		this.iniziale = this.partita.getLabirinto().getStanzaCorrente(); //all'inizio e' l'atrio
+		this.partita = new Partita(new Labirinto());
+		this.iniziale = new Stanza("test"); //all'inizio e' l'atrio
 		Fake = new FakePersonaggio("fake", null);
-		this.partita.getLabirinto().getStanzaCorrente().aggiungiPersonaggio(Fake);
+		this.partita.getLabirinto().addStanzaLabirinto(iniziale);
+		this.partita.getLabirinto().setStanzaCorrente(iniziale);
+		this.partita.getStanzaCorrente().aggiungiPersonaggio(Fake);
+		this.giocatore = new Giocatore();
 		this.giocatore.getBorsa().addAttrezzo(new Attrezzo("dono", 0));
 	}
 
@@ -36,7 +40,7 @@ class ComandoRegalaTest {
 	void testRegala() {
 		assertTrue(this.giocatore.getBorsa().hasAttrezzo("dono"));
 		comando.esegui(partita);
-		assertTrue(!this.giocatore.getBorsa().hasAttrezzo("dono"));
+		assertFalse(this.giocatore.getBorsa().hasAttrezzo("dono"));
 	}
 
 }

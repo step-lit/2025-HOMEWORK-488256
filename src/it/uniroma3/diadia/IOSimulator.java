@@ -1,5 +1,6 @@
 package it.uniroma3.diadia;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,11 @@ public class IOSimulator implements IO {
 			return comando;
 		}
 		return null;
+	}
+
+	@Override
+	public void close() throws IOException {
+		
 	}
 
 }

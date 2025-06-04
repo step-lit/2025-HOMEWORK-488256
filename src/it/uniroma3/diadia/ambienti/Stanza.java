@@ -178,5 +178,9 @@ public class Stanza {
 	public int hashCode() {
 	    return this.getClass().hashCode() + this.getNome().hashCode();
 	}
+
+	public void aggiungiPersonaggio(AbstractPersonaggio personaggio) {
+		this.personaggio = personaggio;
+	}
 	
 }
