@@ -31,7 +31,23 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 		// es. nomeClasse: ‘it.uniroma3.diadia.comandi.ComandoVai’
 		//comando = (Comando)Class.forName(nomeClasse.toString()).newInstance();
 		// POSSIBILE ALTERNATIVA basata sul rendere il tipo Class<Comando> esplicito:
-		comando = ((Class<Comando>)Class.forName(nomeClasse.toString())).newInstance();
+		try {
+			comando = ((Class<Comando>)Class.forName(nomeClasse.toString())).newInstance();
+			comando.addIO(io);
+		}
+		catch(InstantiationException e) {
+			this.io.mostraMessaggio("ERRORE: la classe del comando non può essere creata");
+			comando = new ComandoNonValido(io);
+		}
+		catch(IllegalAccessException e) {
+			this.io.mostraMessaggio("ERRORE: la classe del comando esiste, ma non è accessibile");
+			comando = new ComandoNonValido(io);
+		}
+		catch(ClassNotFoundException e) {
+			/* possibile causa: comando ignoto – errore digitazione utente */
+			comando = new ComandoNonValido(io);
+			this.io.mostraMessaggio("Comando inesistente");
+		}
 		comando.setParametro(parametro);
 		return comando;
 	}

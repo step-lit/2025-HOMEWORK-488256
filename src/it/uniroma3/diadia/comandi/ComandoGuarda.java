@@ -11,6 +11,12 @@ public class ComandoGuarda implements Comando {
 	public ComandoGuarda(IO io) {
 		this.io = io;
 	}
+	public ComandoGuarda() {}
+	
+	@Override
+	public void addIO(IO io) {
+		this.io = io;
+	}
 	
 	@Override
 	public void esegui(Partita partita) {

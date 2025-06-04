@@ -17,6 +17,12 @@ public class ComandoVai implements Comando {
 	public ComandoVai(IO io) {
 		this.io = io;
 	}
+	public ComandoVai() {}	
+	@Override
+	public void addIO(IO io) {
+		this.io = io;
+	}
+	
 	
 	/**
 	  * esecuzione del comando

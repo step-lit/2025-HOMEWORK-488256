@@ -8,7 +8,12 @@ public class ComandoInteragisci implements Comando {
 	private static final String MESSAGGIO_CON_CHI =
 			"Con chi dovrei interagire?...";
 	private String messaggio;
-	private IO io;
+	private IO io;	
+	@Override
+	public void addIO(IO io) {
+		this.io = io;
+	}
+	
 	@Override
 	public void esegui(Partita partita) {
 		AbstractPersonaggio personaggio;

@@ -16,8 +16,11 @@ public class ComandoPrendi implements Comando {
 	
 	public ComandoPrendi(IO io) {
 		this.io = io;
+	}	
+	@Override
+	public void addIO(IO io) {
+		this.io = io;
 	}
-	
 	@Override
 	public void esegui(Partita partita) {
 		if(nomeAttrezzo == null)

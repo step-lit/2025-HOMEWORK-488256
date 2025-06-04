@@ -10,7 +10,12 @@ public class ComandoNonValido implements Comando {
 	
 	public ComandoNonValido(IO io) {
 		this.io = io;
+	}	
+	@Override
+	public void addIO(IO io) {
+		this.io = io;
 	}
+	
 	
 	@Override
 	public void esegui(Partita partita) {

@@ -31,7 +31,7 @@ class IOSimulatorTest {
 	
 	
 	@Test
-	void testSimulatorHaiVinto() {
+	void testSimulatorHaiVinto() throws Throwable {
 		comandi.add("vai nord");
 		
 		simulator = new IOSimulator(comandi);
@@ -51,7 +51,7 @@ class IOSimulatorTest {
 	
 	
 	@Test
-	void testSimulatorDirezioneInesistente() {
+	void testSimulatorDirezioneInesistente() throws Throwable {
 		comandi.add("vai est");
 		comandi.add("vai nord");
 		
@@ -74,7 +74,7 @@ class IOSimulatorTest {
 	}
 	
 	@Test
-	void testSimulatorPartita() {
+	void testSimulatorPartita() throws Throwable {
 		comandi.add("prendi osso");
 		comandi.add("vai sud");
 		comandi.add("prendi lanterna");

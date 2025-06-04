@@ -9,6 +9,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -42,7 +43,7 @@ public class DiaDia {
 		this.io = io;
 	}
 
-	public void gioca() {
+	public void gioca() throws Throwable {
 		String istruzione; 
 		
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);		
@@ -56,11 +57,12 @@ public class DiaDia {
 	 * Processa una istruzione 
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
+	 * @throws Throwable 
 	 */
-	private boolean processaIstruzione(String istruzione) {
+	private boolean processaIstruzione(String istruzione) throws Throwable {
 		if(istruzione == null) return true;
 		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(this.io);
+		FabbricaDiComandiRiflessiva factory = new FabbricaDiComandiRiflessiva(this.io);
 		
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
@@ -71,7 +73,7 @@ public class DiaDia {
 		return this.partita.isFinita();
 	}
 	
-	public static void main(String[] argc) {
+	public static void main(String[] argc) throws Throwable {
 		IO io = new IOConsole();
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")

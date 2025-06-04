@@ -16,6 +16,12 @@ public class ComandoFine implements Comando {
 	public ComandoFine(IO io) {
 		this.io = io;
 	}
+	public ComandoFine() {}
+	
+	@Override
+	public void addIO(IO io) {
+		this.io = io;
+	}
 	
 	@Override
 	public void esegui(Partita partita) {

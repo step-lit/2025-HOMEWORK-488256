@@ -16,6 +16,11 @@ public class ComandoPosa implements Comando {
 	private IO io;
 	
 	
+	@Override
+	public void addIO(IO io) {
+		this.io = io;
+	}
+	
 	public ComandoPosa(IO io) {
 		this.io = io;
 	}
