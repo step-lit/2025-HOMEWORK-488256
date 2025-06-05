@@ -3,8 +3,6 @@ package it.uniroma3.personaggi;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.RandomAccess;
-
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
