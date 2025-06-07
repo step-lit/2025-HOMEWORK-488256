@@ -7,6 +7,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Cane extends AbstractPersonaggio{
+	
 	private int CFUDaPerdere;
 	private Attrezzo Cibo;
 	private final ArrayList<Attrezzo> AttrezziPossibili = new ArrayList<Attrezzo>(List.of(

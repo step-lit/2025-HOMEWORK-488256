@@ -1,6 +1,11 @@
 package it.uniroma3.diadia;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
@@ -69,12 +74,18 @@ public class DiaDia {
 
 	public static void main(String[] argc) throws Throwable {
 		try (IO io = new IOConsole()){
-			CaricatoreLabirinto caricatore = new CaricatoreLabirinto("labirinto.txt");
-			caricatore.carica();
-			Labirinto labirinto = caricatore.getLabirintoCostruito();
+			InputStream stream = DiaDia.class.getClassLoader().getResourceAsStream("labirinto.txt");
+			if (stream == null) {
+				throw new FileNotFoundException("File del labirinto non trovato.");
+			}
+			try ( Reader reader = new InputStreamReader(stream) ) {
+				CaricatoreLabirinto caricatore = new CaricatoreLabirinto(reader);
+				caricatore.carica();
+				Labirinto labirinto = caricatore.getLabirintoCostruito();
 
-			DiaDia gioco = new DiaDia(labirinto,io); //creando DiaDia inizializza una nuova partita (costruttore)
-			gioco.gioca();
+				DiaDia gioco = new DiaDia(labirinto,io); //creando DiaDia inizializza una nuova partita (costruttore)
+				gioco.gioca();
+			}
 		}
 		//il finally{this.io.close();} lo fa in automatico
 	}

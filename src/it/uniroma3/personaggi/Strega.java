@@ -7,7 +7,9 @@ import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Strega extends AbstractPersonaggio {
+	
 	Attrezzo dono;
+	
 	public Strega(String nome, String presentaz) {
 		super(nome, presentaz);
 		dono = null;
@@ -47,7 +49,7 @@ public class Strega extends AbstractPersonaggio {
 	@Override
 	public String riceviRegalo(Attrezzo attrezzo, Partita partita) {
 		dono = attrezzo;
-		return "La strega sghignazza n segno d'apprezzamento\n"
+		return "La strega sghignazza in segno d'apprezzamento\n"
 				+ "'nieHAHAHAHAHAHAHHAAAHAHAAUGH-'inizia a tossire\n"
 				+ "\nForse lo ha apprezzato un pò troppo";
 	}
