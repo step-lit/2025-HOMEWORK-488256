@@ -1,9 +1,6 @@
 package it.uniroma3.diadia;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
@@ -31,14 +28,15 @@ public class Partita {
 		
 		Properties prop = new Properties();
 		try {
-			prop.load(new FileReader("/diadia/resources/diadiaProperties"));
+			InputStream input = new FileInputStream("resources/diadia.Properties");
+			prop.load(input);
 			cfu = Integer.parseInt(prop.getProperty("cfu_iniziali"));
 			pesoBorsa = Integer.parseInt(prop.getProperty("peso_max_borsa"));
-			System.out.println("fart");
+			System.out.println("file trovato");
 		} catch (IOException e) {
 			cfu = 20; 
 			pesoBorsa = 10;
-			System.out.println("ass");
+			System.out.println("file NON trovato");
 		}
 		
 		this.giocatore = new Giocatore();
