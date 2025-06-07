@@ -9,10 +9,14 @@ public class Giocatore {
 	private Borsa borsa;
 	private int cfu;
 	
-	public Giocatore() {
-		Properties prop = new Properties();
+	public Giocatore(){
 		this.cfu = CFU_INIZIALI;
 		this.borsa = new Borsa();
+	}
+	
+	public Giocatore(int pesoBorsa, int cfu){
+		this.cfu = cfu;
+		this.borsa = new Borsa(pesoBorsa);
 	}
 	
 	public int getCfu() {

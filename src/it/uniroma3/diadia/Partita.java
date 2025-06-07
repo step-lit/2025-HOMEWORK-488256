@@ -1,5 +1,11 @@
 package it.uniroma3.diadia;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
@@ -18,8 +24,23 @@ public class Partita {
 	private Giocatore giocatore;
 	private boolean finita;
 	
-	public Partita(Labirinto labirinto){
+	public Partita(Labirinto labirinto) {
 		this.labirinto = labirinto;
+		int pesoBorsa;
+		int cfu;
+		
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileReader("/diadia/resources/diadiaProperties"));
+			cfu = Integer.parseInt(prop.getProperty("cfu_iniziali"));
+			pesoBorsa = Integer.parseInt(prop.getProperty("peso_max_borsa"));
+			System.out.println("fart");
+		} catch (IOException e) {
+			cfu = 20; 
+			pesoBorsa = 10;
+			System.out.println("ass");
+		}
+		
 		this.giocatore = new Giocatore();
 		this.finita = false;
 	}
