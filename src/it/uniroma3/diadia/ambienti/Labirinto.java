@@ -9,6 +9,9 @@ import java.util.Set;
 import it.uniroma3.diadia.CaricatoreLabirinto;
 import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.personaggi.Cane;
+import it.uniroma3.personaggi.Mago;
+import it.uniroma3.personaggi.Strega;
 
 import java.io.FileReader;
 
@@ -109,8 +112,7 @@ public class Labirinto {
         
         public LabirintoBuilder addAdiacenza(String nomeStanzaPartenza, String nomeStanzaAdiacente, String direzione) {
         	if(!DIREZIONI_VALIDE.contains(direzione.toLowerCase())) {
-        		System.err.println("Direzione specificata non valida. La stanza adiacente a " + nomeStanzaPartenza + "non è stata aggiunta.");
-    			return this;
+        		throw new IllegalStateException("Direzione specificata non valida. La stanza adiacente a " + nomeStanzaPartenza + "non è stata aggiunta.");
     		}
             Stanza stanzaPartenza = this.labirinto.stanzeLabirinto.get(nomeStanzaPartenza);
             Stanza stanzaAdiacente = this.labirinto.stanzeLabirinto.get(nomeStanzaAdiacente);
@@ -133,6 +135,13 @@ public class Labirinto {
             return this;
         }
         
+        public LabirintoBuilder addStanzaMagica(String nome) {
+        	StanzaMagica stanza = new StanzaMagica(nome);
+        	this.labirinto.stanzeLabirinto.put(nome, stanza); 
+            this.ultimaStanzaAggiunta = stanza;
+            return this;
+        }
+        
         public LabirintoBuilder addStanzaBloccata(String nome, String nomeAttr, String direzione) {
     		StanzaBloccata stanza = new StanzaBloccata(nome,nomeAttr,direzione);
     		this.labirinto.stanzeLabirinto.put(nome, stanza); 
@@ -147,6 +156,27 @@ public class Labirinto {
     		return this;
     	}
 
+    	public LabirintoBuilder addMago(String nomeMago, String presentazione, String nomeAttr, int pesoAttr, String nomeStanzaPosizione) {
+    		Stanza stanza = this.labirinto.stanzeLabirinto.get(nomeStanzaPosizione);
+    		Attrezzo attrezzoDaDonare = new Attrezzo(nomeAttr, pesoAttr);
+    		Mago mago = new Mago(nomeMago, presentazione, attrezzoDaDonare);
+    		stanza.aggiungiPersonaggio(mago);
+    		return this;
+    	}
+    	
+    	public LabirintoBuilder addCane(String nomeCane, String presentazione, String nomeStanzaPosizione) {
+    		Stanza stanza = this.labirinto.stanzeLabirinto.get(nomeStanzaPosizione);
+    		Cane cane = new Cane(nomeCane, presentazione);
+    		stanza.aggiungiPersonaggio(cane);
+    		return this;
+    	}
+    	
+    	public LabirintoBuilder addStrega(String nomeStrega, String presentazione, String nomeStanzaPosizione) {
+    		Stanza stanza = this.labirinto.stanzeLabirinto.get(nomeStanzaPosizione);
+    		Strega strega = new Strega(nomeStrega, presentazione);
+    		stanza.aggiungiPersonaggio(strega);
+    		return this;
+    	}
 
         public Map<String, Stanza> getListaStanze() {
             return new HashMap<>(this.labirinto.stanzeLabirinto);
