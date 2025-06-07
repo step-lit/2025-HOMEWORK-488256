@@ -1,6 +1,7 @@
 package it.uniroma3.diadia;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Properties;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
@@ -35,7 +36,7 @@ public class DiaDia {
 	private Partita partita;
 	private IO io;
 
-	public DiaDia(Labirinto labirinto, IO io) {
+	public DiaDia(Labirinto labirinto, IO io) throws IOException {
 		this.partita = new Partita(labirinto);
 		this.io = io;
 	}
