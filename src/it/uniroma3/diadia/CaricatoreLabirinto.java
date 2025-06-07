@@ -93,14 +93,13 @@ public class CaricatoreLabirinto {
 	}
 	
 	private void leggiMarker(String marker) throws IOException, FormatoFileNonValidoException {
-        String rigaLetta;
-        if (this.rigaAccantonata != null && this.rigaAccantonata.equals(marker)) {
+        if (this.rigaAccantonata != null) {
+        	check(this.rigaAccantonata.equals(marker), "Formato file errato. Atteso marker '" + marker + "', ma trovato marker accantonato: '" + this.rigaAccantonata + "'");
             this.rigaAccantonata = null;
-        } else if (this.rigaAccantonata != null && !this.rigaAccantonata.equals(marker)){
-        	check(false, "Formato file errato. Atteso marker '" + marker + "', ma trovato marker accantonato: '" + this.rigaAccantonata + "'");
+            return;
         }
         
-        rigaLetta = this.reader.readLine();
+        String rigaLetta = this.reader.readLine();
         while (rigaLetta != null && rigaLetta.trim().isEmpty()) {
             rigaLetta = this.reader.readLine();
         }
@@ -110,12 +109,11 @@ public class CaricatoreLabirinto {
     }
 	
 	private String leggiProssimaRigaValida() throws IOException {
-        String riga = this.reader.readLine();
         if(this.rigaAccantonata != null) {
         	return null;
         }
         
-        riga = this.reader.readLine();
+        String riga = this.reader.readLine();
         while (riga != null) {
             String rigaDopoTrim = riga.trim();
             if (rigaDopoTrim.isEmpty()) {
