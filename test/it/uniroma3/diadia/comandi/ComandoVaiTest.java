@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.Direzione;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.comandi.ComandoVai;
 
 class ComandoVaiTest {
 	
@@ -51,7 +51,7 @@ class ComandoVaiTest {
 		//spostiamo la stanza corrente a nord dell'atrio, ovvero in biblioteca
 		this.comando.setParametro("nord");
 		this.comando.esegui(this.partita);
-		assertEquals(this.iniziale.getStanzaAdiacente("nord"), this.partita.getLabirinto().getStanzaCorrente());
+		assertEquals(this.iniziale.getStanzaAdiacente(Direzione.nord), this.partita.getLabirinto().getStanzaCorrente());
 		assertEquals(19, this.partita.getGiocatore().getCfu());
 	}
 
@@ -62,7 +62,7 @@ class ComandoVaiTest {
 		this.comando.esegui(this.partita);
 		this.comando.setParametro("nord"); //qui non trova nulla
 		this.comando.esegui(this.partita);
-		assertEquals(this.iniziale.getStanzaAdiacente("est"), this.partita.getLabirinto().getStanzaCorrente());
+		assertEquals(this.iniziale.getStanzaAdiacente(Direzione.est), this.partita.getLabirinto().getStanzaCorrente());
 		assertEquals(19, this.partita.getGiocatore().getCfu());
 	}
 	

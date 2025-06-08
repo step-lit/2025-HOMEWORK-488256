@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set; 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.Direzione;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class StanzaTest {
@@ -14,7 +16,7 @@ class StanzaTest {
 	private Attrezzo martello;
 	private Attrezzo foglio;
 	private Attrezzo torcia;
-	private Set<String> direzioni;
+	private Set<Direzione> direzioni;
 	
 	
 	@BeforeEach
@@ -25,7 +27,7 @@ class StanzaTest {
 		this.stanzaNord = new Stanza("Stanza nord");
 		this.stanzaTest.impostaStanzaAdiacente("nord", this.stanzaNord); //stanzaTest ha la direzione nord (verso stanzaNord)
 		this.stanzaNord.impostaStanzaAdiacente("sud", this.stanzaTest); //stanzaNord ha la direzione sud (verso stanzaTest)
-		this.direzioni = new HashSet<String>();
+		this.direzioni = new HashSet<Direzione>();
 		
 		this.martello = new Attrezzo("Martello", 2);
 		this.foglio = new Attrezzo("Foglio", 0);
@@ -42,16 +44,16 @@ class StanzaTest {
 	@Test
 	public void testgetStanzaAdiacente() {
 		//la stanza ha solo una stanza adiacente a nord;
-		assertNotNull(this.stanzaTest.getStanzaAdiacente("nord"));
-        assertNull(this.stanzaTest.getStanzaAdiacente("sud"));
-        assertNull(this.stanzaTest.getStanzaAdiacente("est"));
-        assertNull(this.stanzaTest.getStanzaAdiacente("ovest"));
+		assertNotNull(this.stanzaTest.getStanzaAdiacente(Direzione.nord));
+        assertNull(this.stanzaTest.getStanzaAdiacente(Direzione.sud));
+        assertNull(this.stanzaTest.getStanzaAdiacente(Direzione.est));
+        assertNull(this.stanzaTest.getStanzaAdiacente(Direzione.ovest));
 	}
 	
 	@Test
 	public void testImpostaStanzaAdiacenteNord() {
 		//stanzaTest inizialmente ha solo la stanza in direzione nord come stanza adiacente;
-		assertEquals(this.stanzaNord, this.stanzaTest.getStanzaAdiacente("nord"));
+		assertEquals(this.stanzaNord, this.stanzaTest.getStanzaAdiacente(Direzione.nord));
 	}
 	
 	@Test
@@ -59,7 +61,7 @@ class StanzaTest {
 		//la stanza ha già una stanza adiacente in direzione nord; viene inserita la nuova stanza ad est;
 		Stanza stanzaEst = new Stanza("Stanza est");
 		this.stanzaTest.impostaStanzaAdiacente("est", stanzaEst);
-		assertEquals(stanzaEst, this.stanzaTest.getStanzaAdiacente("est"));
+		assertEquals(stanzaEst, this.stanzaTest.getStanzaAdiacente(Direzione.est));
 	}
 	
 	@Test
@@ -67,7 +69,7 @@ class StanzaTest {
 		//la stanza ha già una stanza adiacente in direzione nord; viene sostituita la stanza nord;
 		Stanza nuovaNord = new Stanza("Stanza nord nuova");
 		this.stanzaTest.impostaStanzaAdiacente("nord", nuovaNord);
-		assertEquals(nuovaNord, this.stanzaTest.getStanzaAdiacente("nord"));
+		assertEquals(nuovaNord, this.stanzaTest.getStanzaAdiacente(Direzione.nord));
 	}
 	
 	
@@ -114,7 +116,7 @@ class StanzaTest {
 	@Test
 	public void testGetDirezioniNord() {
 		//stanzaTest ha solo direzione nord da setUp
-		this.direzioni.add("nord");
+		this.direzioni.add(Direzione.nord);
 		assertEquals(this.direzioni, this.stanzaTest.getDirezioni());
 	}
 	
@@ -128,8 +130,8 @@ class StanzaTest {
 	@Test
 	public void testGetDirezioniNordEst() {
 		//stanzaTest ottiene direzione est oltre a nord
-		this.direzioni.add("est");
-		this.direzioni.add("nord");
+		this.direzioni.add(Direzione.est);
+		this.direzioni.add(Direzione.nord);
 		
 		Stanza stanzaEst = new Stanza("Stanza est");
 		stanzaTest.impostaStanzaAdiacente("est", stanzaEst);

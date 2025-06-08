@@ -40,7 +40,7 @@ public class PartitaTest {
 	@Test
 	public void testVintaAltra() {
 		//imposta un'altra stanza come stanza corrente della partita (che non sia né la stanza iniziale né il goal)
-		Stanza aulaN10 = this.nuovaPartita.getLabirinto().getStanzaCorrente().getStanzaAdiacente("sud"); //estraggo l'aula N10 dalla partita
+		Stanza aulaN10 = this.nuovaPartita.getLabirinto().getStanzaCorrente().getStanzaAdiacente(Direzione.sud); //estraggo l'aula N10 dalla partita
 		this.nuovaPartita.getLabirinto().setStanzaCorrente(aulaN10);
 		assertFalse(this.nuovaPartita.vinta());
 	}

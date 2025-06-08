@@ -3,6 +3,8 @@ package it.uniroma3.diadia.ambienti;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.Direzione;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class StanzaBloccataTest {
@@ -23,19 +25,19 @@ class StanzaBloccataTest {
 	@Test
 	void testGetStanzaAdiacenteNoAttrezzi() {
 		//la stanza non ha attrezzi (e neanche quello sbloccante)
-		assertSame(this.stanzaTest, this.stanzaTest.getStanzaAdiacente("nord"));
+		assertSame(this.stanzaTest, this.stanzaTest.getStanzaAdiacente(Direzione.nord));
 	}
 	
 	@Test
 	void testGetStanzaAdiacenteConChiave() {
 		//nella stanza è presente solo l'attrezzo sbloccante per la direzione nord
 		this.stanzaTest.addAttrezzo(this.oggettoSbloccante);
-		assertSame(this.stanzaNord, this.stanzaTest.getStanzaAdiacente("nord"));
+		assertSame(this.stanzaNord, this.stanzaTest.getStanzaAdiacente(Direzione.nord));
 	}
 	
 	@Test
 	void testGetStanzaAdiacenteNoBlocco() {
 		//la stanza ad est non è quella bloccata
-		assertSame(this.stanzaEst, this.stanzaTest.getStanzaAdiacente("est"));
+		assertSame(this.stanzaEst, this.stanzaTest.getStanzaAdiacente(Direzione.est));
 	}
 }

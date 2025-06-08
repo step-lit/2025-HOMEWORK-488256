@@ -90,10 +90,10 @@ class CaricatoreLabirintoTest {
         assertEquals(n10, l.getStanzaIniziale());
         assertEquals(n11, l.getStanzaVincente());
         
-        assertNotNull(n10.getStanzaAdiacente("nord"));
-        assertEquals(n11, n10.getStanzaAdiacente("nord"));
-        assertNotNull(n11.getStanzaAdiacente("sud"));
-        assertEquals(n10, n11.getStanzaAdiacente("sud"));
+        assertNotNull(n10.getStanzaAdiacente(Direzione.nord));
+        assertEquals(n11, n10.getStanzaAdiacente(Direzione.nord));
+        assertNotNull(n11.getStanzaAdiacente(Direzione.sud));
+        assertEquals(n10, n11.getStanzaAdiacente(Direzione.sud));
         
     }
 	
@@ -163,10 +163,10 @@ class CaricatoreLabirintoTest {
         assertNotNull(salone.getAttrezzo("Scudo"));
         assertEquals(15, salone.getAttrezzo("Scudo").getPeso());
 
-        assertEquals(salone, ingresso.getStanzaAdiacente("nord"));
-        assertEquals(ingresso, salone.getStanzaAdiacente("sud"));
-        assertEquals(cucina, salone.getStanzaAdiacente("est"));
-        assertEquals(salone, cucina.getStanzaAdiacente("ovest"));
+        assertEquals(salone, ingresso.getStanzaAdiacente(Direzione.nord));
+        assertEquals(ingresso, salone.getStanzaAdiacente(Direzione.sud));
+        assertEquals(cucina, salone.getStanzaAdiacente(Direzione.est));
+        assertEquals(salone, cucina.getStanzaAdiacente(Direzione.ovest));
     }
 	
 }

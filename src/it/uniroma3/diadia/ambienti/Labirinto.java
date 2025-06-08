@@ -1,13 +1,13 @@
 package it.uniroma3.diadia.ambienti;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import it.uniroma3.diadia.CaricatoreLabirinto;
+import it.uniroma3.diadia.Direzione;
 import it.uniroma3.diadia.FormatoFileNonValidoException;
+import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.personaggi.Cane;
 import it.uniroma3.personaggi.Mago;
@@ -86,7 +86,6 @@ public class Labirinto {
 	public static class LabirintoBuilder {
         private Labirinto labirinto;
         private Stanza ultimaStanzaAggiunta;
-        private static final Set<String> DIREZIONI_VALIDE = new HashSet<>(Arrays.asList("nord", "sud", "est", "ovest"));
 
         public LabirintoBuilder() {
             this.labirinto = new Labirinto(); // Usa il costruttore privato di Labirinto
@@ -116,9 +115,12 @@ public class Labirinto {
         }
         
         public LabirintoBuilder addAdiacenza(String nomeStanzaPartenza, String nomeStanzaAdiacente, String direzione) {
-        	if(!DIREZIONI_VALIDE.contains(direzione.toLowerCase())) {
-        		throw new IllegalStateException("Direzione specificata non valida. La stanza adiacente a " + nomeStanzaPartenza + "non è stata aggiunta.");
-    		}
+        	try {
+        		Direzione test = Direzione.valueOf(direzione);
+        	}
+        	catch (IllegalArgumentException e) {
+        		return this;
+        	}
             Stanza stanzaPartenza = this.labirinto.stanzeLabirinto.get(nomeStanzaPartenza);
             Stanza stanzaAdiacente = this.labirinto.stanzeLabirinto.get(nomeStanzaAdiacente);
             stanzaPartenza.impostaStanzaAdiacente(direzione, stanzaAdiacente);
