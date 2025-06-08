@@ -50,8 +50,10 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 			this.io.mostraMessaggio("Errore: il comando '" + nomeComando + "' non può essere eseguito.");
 			e.printStackTrace();
 		}
-	
-		comando.setParametro(parametro);
+		
+		if( parametro != null) {
+			comando.setParametro(parametro);
+		}
 		return comando;
 	}
 }

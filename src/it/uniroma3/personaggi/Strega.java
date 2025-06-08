@@ -21,11 +21,12 @@ public class Strega extends AbstractPersonaggio {
 		Stanza nuovaStanza;
 		Collection<Stanza> collezioneDiStanze = partita.getLabirinto().getMapStanzeLabirinto().values();
 		collezioneDiStanze.remove(partita.getLabirinto().getStanzaVincente());
+		collezioneDiStanze.remove(partita.getLabirinto().getStanzaCorrente());
 		if(dono!=null) {
 			messaggio.append("'Visto la tua gentilezza, ho deciso di darti un premio...\n"
 					+ "ti ritroverai nella stanza con più attrezzi,\n"
 					+ "Chissà, magari troverai qualcosa di utile... nieHAHAHAHA!'");
-			Stanza stanzaPiùAttrezzi = partita.getLabirinto().getStanzaCorrente();
+			Stanza stanzaPiùAttrezzi = (Stanza) collezioneDiStanze.toArray()[0];
 			for(Stanza a : collezioneDiStanze) {
 				if(stanzaPiùAttrezzi.getAttrezzi().size() < a.getAttrezzi().size()) stanzaPiùAttrezzi = a;
 			}
@@ -33,7 +34,7 @@ public class Strega extends AbstractPersonaggio {
 		}
 		else {
 			messaggio.append("'nieHAHAHAHA! Vedrai cosa succede agli scortesi!'");
-			Stanza stanzaMenoAttrezzi = partita.getLabirinto().getStanzaCorrente();
+			Stanza stanzaMenoAttrezzi = (Stanza) collezioneDiStanze.toArray()[0];
 			for(Stanza a : collezioneDiStanze) {
 				if(stanzaMenoAttrezzi.getAttrezzi().size() > a.getAttrezzi().size()) stanzaMenoAttrezzi = a;
 			}

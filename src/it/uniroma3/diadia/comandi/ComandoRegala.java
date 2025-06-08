@@ -17,6 +17,8 @@ public class ComandoRegala implements Comando {
 		this.io = io;
 	}	
 	
+	public ComandoRegala() {}
+	
 	@Override
 	public void addIO(IO io) {
 		this.io = io;

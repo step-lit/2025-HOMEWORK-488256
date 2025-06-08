@@ -21,7 +21,7 @@ public class ComandoGuarda implements Comando {
 	@Override
 	public void esegui(Partita partita) {
 		
-		io.mostraMessaggio(partita.getLabirinto().getStanzaCorrente().getDescrizione());
+		io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 		io.mostraMessaggio(partita.getGiocatore().getBorsa().toString());
 		io.mostraMessaggio("Cfu attuali: " + partita.getGiocatore().getCfu());
 	}

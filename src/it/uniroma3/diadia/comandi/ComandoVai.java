@@ -59,7 +59,12 @@ public class ComandoVai implements Comando {
 	*/
 	@Override
 	public void setParametro(String parametro) {
-		this.direzione = Direzione.valueOf(parametro);
+		try {
+			this.direzione = Direzione.valueOf(parametro);
+		}
+		catch (IllegalArgumentException e) {
+			io.mostraMessaggio("Errore: il parametro inserito è errato.");
+		}
 	}
 	
 	@Override

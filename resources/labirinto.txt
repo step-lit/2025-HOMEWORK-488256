@@ -4,9 +4,10 @@ Biblioteca
 N10Magica
 CorridoioBloccato
 N11Buia
+Cortile
 
 StanzeMagiche: 
-N10Magica 1
+N10Magica
 
 StanzeBloccate:
 CorridoioBloccato Chiave nord
@@ -35,5 +36,9 @@ N10 est N10Magica
 N10Magica ovest N10
 N10Magica nord CorridoioBloccato
 CorridoioBloccato sud N10Magica
+CorridoioBloccato nord Cortile
+Cortile sud CorridoioBloccato
+Cortile est Biblioteca
+Biblioteca ovest Cortile
 N10Magica est N11Buia
 N11Buia ovest N10Magica

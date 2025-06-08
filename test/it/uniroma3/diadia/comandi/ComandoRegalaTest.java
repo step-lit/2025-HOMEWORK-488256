@@ -7,13 +7,13 @@ import java.util.Scanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.FakePersonaggio;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Giocatore;
+import it.uniroma3.diadia.personaggi.FakePersonaggio;
 import it.uniroma3.personaggi.AbstractPersonaggio;
 
 class ComandoRegalaTest {

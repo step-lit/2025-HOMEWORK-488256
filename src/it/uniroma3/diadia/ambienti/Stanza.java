@@ -110,6 +110,9 @@ public class Stanza {
     	risultato.append("\nUscite: ");
     	for (Direzione direzione : this.getDirezioni())
     		risultato.append(" " + direzione);
+    	risultato.append("\nPersonaggi: ");
+    	if( this.personaggio != null)
+    		risultato.append(this.personaggio.getNome());
     	risultato.append("\nAttrezzi nella stanza: ");
     	for (Attrezzo attrezzo : this.attrezzi.values()) {
     		risultato.append(attrezzo.toString()+" ");
