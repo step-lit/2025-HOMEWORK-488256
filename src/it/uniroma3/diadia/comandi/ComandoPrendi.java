@@ -30,7 +30,7 @@ public class ComandoPrendi implements Comando {
 		if( partita.getStanzaCorrente().getAttrezzi().size() == 0 )
 			io.mostraMessaggio("La stanza in questo momento non ha attrezzi.");
 		if(nomeAttrezzo == null || !partita.getStanzaCorrente().getAttrezzi().containsKey(nomeAttrezzo))
-			io.mostraMessaggio("Non hai specificato l'attrezzo da prendere o non c'è nessun attrezzo con quel nomevai!");
+			io.mostraMessaggio("Non hai specificato l'attrezzo da prendere o non c'è nessun attrezzo con quel nome!");
 		else if( partita.getLabirinto().getStanzaCorrente().hasAttrezzo(nomeAttrezzo) ) {
 			Attrezzo attrezzoVoluto = partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 			

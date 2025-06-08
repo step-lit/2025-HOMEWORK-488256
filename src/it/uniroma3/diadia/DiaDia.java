@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Scanner;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
@@ -72,20 +74,33 @@ public class DiaDia {
 	}
 
 	public static void main(String[] argc) throws Throwable {
-		try (IO io = new IOConsole()){
-			InputStream stream = DiaDia.class.getClassLoader().getResourceAsStream("labirinto.txt");
-			if (stream == null) {
-				throw new FileNotFoundException("File del labirinto non trovato.");
-			}
-			try ( Reader reader = new InputStreamReader(stream) ) {
-				CaricatoreLabirinto caricatore = new CaricatoreLabirinto(reader);
-				caricatore.carica();
-				Labirinto labirinto = caricatore.getLabirintoCostruito();
-
-				DiaDia gioco = new DiaDia(labirinto,io); //creando DiaDia inizializza una nuova partita (costruttore)
+		try ( Scanner scanner = new Scanner(System.in) ){
+			
+			IO io = new IOConsole(scanner);
+			
+			try {
+				InputStream stream = DiaDia.class.getClassLoader().getResourceAsStream("labirinto.txt");
+				if (stream == null) {
+					throw new FileNotFoundException("File del labirinto non trovato.");
+				}
+				
+				Labirinto labirinto;
+				try ( Reader reader = new InputStreamReader(stream) ) {
+					CaricatoreLabirinto caricatore = new CaricatoreLabirinto(reader);
+					caricatore.carica();
+					labirinto = caricatore.getLabirintoCostruito();
+				}
+				DiaDia gioco = new DiaDia(labirinto, io); //creando DiaDia inizializza una nuova partita (costruttore)
 				gioco.gioca();
 			}
-		}
-		//il finally{this.io.close();} lo fa in automatico
+			catch (FileNotFoundException e){
+				io.mostraMessaggio("Errore: "+ e.getMessage());
+			}
+			catch (Exception e) { //Altre possibili eccezioni
+				io.mostraMessaggio("Eccezione imprevista.");
+				e.printStackTrace();
+			}
+			
+		} //lo scanner viene chiuso alla fine del blocco try!
 	}
 }

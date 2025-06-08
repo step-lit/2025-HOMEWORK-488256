@@ -22,7 +22,7 @@ public class ComandoAiuto implements Comando {
 		this.io = io;
 	}
 	
-	static final private String[] elencoComandi = {"vai", "prendi", "posa", "aiuto", "interagisci", "fine"};
+	static final private String[] elencoComandi = {"vai", "guarda", "prendi", "posa", "interagisci", "fine", "aiuto"};
 	@Override
 	public void esegui(Partita partita) {
 		for(int i=0; i< elencoComandi.length; i++)

@@ -3,40 +3,39 @@ package it.uniroma3.diadia.comandi;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
-
 import it.uniroma3.diadia.IO;
 
 public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 
-	IO io;
+	private IO io;
 
 	public FabbricaDiComandiRiflessiva(IO io) {
 		this.io = io;
 	}
 
 	@Override
-	public Comando costruisciComando(String istruzione) throws NoSuchMethodException, SecurityException, 
-															   IllegalArgumentException, InvocationTargetException,
-															   IllegalAccessException {
-		Scanner scannerDiParole = new Scanner(istruzione); 	// es. ‘vai sud’
+	public Comando costruisciComando(String istruzione) throws IllegalAccessException {
+		
 		String nomeComando = null; 	// es. ‘vai’
 		String parametro = null; 	// es. ‘sud’
 		Comando comando = null;
 		
-		if (scannerDiParole.hasNext())
-		nomeComando = scannerDiParole.next(); //prima parola: nome del comando
-		if (scannerDiParole.hasNext())
-		parametro = scannerDiParole.next();   //seconda parola: eventuale parametro
+		try ( Scanner scannerDiParole = new Scanner(istruzione) )	{  // es. ‘vai sud’
+			if (scannerDiParole.hasNext())
+				nomeComando = scannerDiParole.next(); //prima parola: nome del comando
+			if (scannerDiParole.hasNext())
+				parametro = scannerDiParole.next();   //seconda parola: eventuale parametro
+		} //chiudo qui lo scanner
 		
 		if(nomeComando == null) {
 			return new ComandoNonValido(io);
 		}
 		
-		StringBuilder nomeClasse = new StringBuilder("it.uniroma3.diadia.comandi.Comando");
-		nomeClasse.append( Character.toUpperCase(nomeComando.charAt(0)) );
-		nomeClasse.append( nomeComando.substring(1) );
-		
 		try {
+			StringBuilder nomeClasse = new StringBuilder("it.uniroma3.diadia.comandi.Comando");
+			nomeClasse.append( Character.toUpperCase(nomeComando.charAt(0)) );
+			nomeClasse.append( nomeComando.substring(1) );
+			
 			Class<?> classeComando = Class.forName(nomeClasse.toString());
 			Constructor<?> costruttore = classeComando.getDeclaredConstructor();
 			comando = (Comando) costruttore.newInstance();

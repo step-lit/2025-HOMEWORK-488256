@@ -1,15 +1,10 @@
 package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.lang.reflect.InvocationTargetException;
-
+import java.util.Scanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import it.uniroma3.diadia.IOConsole;
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 
 class FabbricaDiComandiFisarmonicaTest {
 	
@@ -18,63 +13,49 @@ class FabbricaDiComandiFisarmonicaTest {
 	
 	@BeforeEach
 	void setUp() {
-		this.fabbrica = new FabbricaDiComandiRiflessiva(new IOConsole());
+		this.fabbrica = new FabbricaDiComandiRiflessiva(new IOConsole(new Scanner(System.in)));
 	}
 	
 	@Test
-	void testComandoVai() throws NoSuchMethodException, SecurityException, 
-								 IllegalArgumentException, InvocationTargetException, 
-								 IllegalAccessException {
+	void testComandoVai() throws IllegalAccessException  {
 		this.comando = this.fabbrica.costruisciComando("vai nord");
 		assertEquals("vai", this.comando.getNome());
 		assertEquals("nord", this.comando.getParametro());
 	}
 	
 	@Test
-	void testComandoFine() throws NoSuchMethodException, SecurityException, 
-								  IllegalArgumentException, InvocationTargetException,
-								  IllegalAccessException {
+	void testComandoFine() throws IllegalAccessException {
 		this.comando = this.fabbrica.costruisciComando("fine");
 		assertEquals("fine", this.comando.getNome());
 	}
 	
 	@Test
-	void testComandoGuarda() throws NoSuchMethodException, SecurityException,
-									IllegalArgumentException, InvocationTargetException, 
-									IllegalAccessException {
+	void testComandoGuarda() throws IllegalAccessException  {
 		this.comando = this.fabbrica.costruisciComando("guarda");
 		assertEquals("guarda", this.comando.getNome());
 	}
 	
 	@Test
-	void testComandoPosa() throws NoSuchMethodException, SecurityException, 
-								  IllegalArgumentException, InvocationTargetException, 
-								  IllegalAccessException {
+	void testComandoPosa() throws IllegalAccessException {
 		this.comando = this.fabbrica.costruisciComando("posa");
 		assertEquals("posa", this.comando.getNome());
 	}
 	
 	@Test
-	void testComandoPrendi() throws NoSuchMethodException, SecurityException,
-									IllegalArgumentException, InvocationTargetException, 
-									IllegalAccessException {
+	void testComandoPrendi() throws IllegalAccessException  {
 		this.comando = this.fabbrica.costruisciComando("prendi");
 		assertEquals("prendi", this.comando.getNome());
 	}
 	
 	@Test
-	void testComandoAiuto() throws NoSuchMethodException, SecurityException,
-								   IllegalArgumentException, InvocationTargetException,
-								   IllegalAccessException {
+	void testComandoAiuto() throws IllegalAccessException  {
 		this.comando = this.fabbrica.costruisciComando("aiuto");
 		assertEquals("aiuto", this.comando.getNome());
 		assertEquals(null, this.comando.getParametro());
 	}
 
 	@Test
-	void testComandoNonValido() throws NoSuchMethodException, SecurityException,
-									   IllegalArgumentException, InvocationTargetException,
-									   IllegalAccessException {
+	void testComandoNonValido() throws IllegalAccessException  {
 		this.comando = this.fabbrica.costruisciComando("");
 		assertEquals(null, this.comando.getNome());
 		assertEquals(null, this.comando.getParametro());

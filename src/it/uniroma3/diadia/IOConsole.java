@@ -3,7 +3,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class IOConsole implements IO {
-	Scanner scannerDiLinee;
+	
+	private Scanner scannerDiLinee;
 
 	public Scanner getScannerDiLinee() {
 		return scannerDiLinee;
@@ -13,8 +14,8 @@ public class IOConsole implements IO {
 		this.scannerDiLinee = scannerDiLinee;
 	}
 
-	public IOConsole() {
-		this.scannerDiLinee = new Scanner(System.in);
+	public IOConsole(Scanner scanner) {
+		this.scannerDiLinee = scanner;
 	}
 
 	@Override
@@ -24,14 +25,11 @@ public class IOConsole implements IO {
 
 	@Override
 	public String leggiRiga() {
-		String riga;
-		riga = scannerDiLinee.nextLine();
-		return riga;
+		return this.scannerDiLinee.nextLine();
 	}
 
 	@Override
 	public void close() throws IOException {
-		this.scannerDiLinee.close();
 	}
 
 }

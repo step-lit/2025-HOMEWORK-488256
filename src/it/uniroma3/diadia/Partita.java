@@ -22,6 +22,17 @@ public class Partita {
 	
 	public Partita(Labirinto labirinto) {
 		this.labirinto = labirinto;
+		this.giocatore = creaGiocatore();
+		this.finita = false;
+	}
+	
+	
+	/**
+	 * Metodo per la creazione di un giocatore con parametri
+	 * presi da file properties;
+	 * @return l'oggetto giocatore
+	 */
+	private Giocatore creaGiocatore() {
 		int pesoBorsa;
 		int cfu;
 		Properties prop = new Properties();
@@ -34,9 +45,7 @@ public class Partita {
 			cfu = 20;
 			pesoBorsa = 10;
 		}
-		
-		this.giocatore = new Giocatore(pesoBorsa, cfu);
-		this.finita = false;
+		return new Giocatore(pesoBorsa,cfu);
 	}
 	
 	/**

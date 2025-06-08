@@ -11,9 +11,6 @@ import java.util.TreeSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.giocatore.Borsa;
-import it.uniroma3.diadia.giocatore.OrdineBorsaPesoCrescenteONomeCrescente;
-import it.uniroma3.diadia.giocatore.OrdinePerNOme;
 
 class BorsaTest {
 
