@@ -25,8 +25,9 @@ public class Partita {
 		int pesoBorsa;
 		int cfu;
 		Properties prop = new Properties();
+		InputStream stream = Partita.class.getClassLoader().getResourceAsStream("diadia.properties");
 		try {
-			prop.load(new FileReader("diadia.properties"));
+			prop.load(stream);
 			cfu = Integer.parseInt(prop.getProperty("cfu_iniziali"));
 			pesoBorsa = Integer.parseInt(prop.getProperty("peso_max_borsa"));
 		} catch (IOException e) {
