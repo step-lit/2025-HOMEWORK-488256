@@ -10,7 +10,7 @@ class GiocatoreTest {
 	
 	@BeforeEach
 	public void setUp() {
-		this.giocatore = new Giocatore();
+		this.giocatore = new Giocatore(10,20);
 	}
 	
 	/**********************************************************************

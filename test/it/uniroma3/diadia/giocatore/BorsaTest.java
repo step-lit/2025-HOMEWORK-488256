@@ -21,7 +21,7 @@ class BorsaTest {
 
 	@BeforeEach
 	public void setUp() {
-		this.borsaTest = new Borsa();
+		this.borsaTest = new Borsa(10);
 		this.foglio = new Attrezzo("Foglio", 0);
 		this.torcia = new Attrezzo("Torcia", 1);
 		this.martello = new Attrezzo("Martello", 2);
