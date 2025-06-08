@@ -50,6 +50,7 @@ public class DiaDia {
 		do		
 			istruzione = io.leggiRiga();
 		while (!processaIstruzione(istruzione));
+		io.close();
 	}  
 
 

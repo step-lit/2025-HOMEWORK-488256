@@ -35,7 +35,7 @@ public class Strega extends AbstractPersonaggio {
 			messaggio.append("'nieHAHAHAHA! Vedrai cosa succede agli scortesi!'");
 			Stanza stanzaMenoAttrezzi = partita.getLabirinto().getStanzaCorrente();
 			for(Stanza a : collezioneDiStanze) {
-				if(stanzaMenoAttrezzi.getAttrezzi().size() < a.getAttrezzi().size()) stanzaMenoAttrezzi = a;
+				if(stanzaMenoAttrezzi.getAttrezzi().size() > a.getAttrezzi().size()) stanzaMenoAttrezzi = a;
 			}
 			nuovaStanza = stanzaMenoAttrezzi;
 		}
