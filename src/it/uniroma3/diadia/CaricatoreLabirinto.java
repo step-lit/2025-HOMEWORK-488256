@@ -62,7 +62,7 @@ public class CaricatoreLabirinto {
 
 	public CaricatoreLabirinto(Reader reader) {
 		this.reader = new LineNumberReader(reader);
-		this.builder = new Labirinto.LabirintoBuilder();
+		this.builder = Labirinto.newBuilder();
 		this.rigaAccantonata = null;
 	}
 	

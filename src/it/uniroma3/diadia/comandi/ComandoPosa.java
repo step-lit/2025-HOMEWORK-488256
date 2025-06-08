@@ -14,13 +14,14 @@ public class ComandoPosa implements Comando {
 	private String nomeAttrezzo;
 	private IO io;
 	
-	
-	@Override
-	public void addIO(IO io) {
+	public ComandoPosa(IO io) {
 		this.io = io;
 	}
 	
-	public ComandoPosa(IO io) {
+	public ComandoPosa() {}
+	
+	@Override
+	public void addIO(IO io) {
 		this.io = io;
 	}
 	

@@ -7,14 +7,13 @@ import org.junit.jupiter.api.Test;
 class LabirintoTest {
 	
 	private Labirinto labirintoTest;
-	private Labirinto.LabirintoBuilder labirintoBuilder;
 	
 	@BeforeEach
 	public void setUp() {
-		this.labirintoBuilder = new Labirinto.LabirintoBuilder()
+		this.labirintoTest = Labirinto.newBuilder()
 					.addStanzaIniziale("Atrio")
-					.addStanzaVincente("Biblioteca");
-		this.labirintoTest = labirintoBuilder.build();
+					.addStanzaVincente("Biblioteca")
+					.build();
 	}
 	
 	@Test

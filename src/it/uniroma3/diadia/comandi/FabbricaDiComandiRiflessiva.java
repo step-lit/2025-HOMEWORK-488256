@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.comandi;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 import it.uniroma3.diadia.IO;
@@ -13,41 +15,43 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 	}
 
 	@Override
-	public Comando costruisciComando(String istruzione)throws Throwable{
-		Scanner scannerDiParole = new Scanner(istruzione); // es. ‘vai sud’
-		String nomeComando = null; // es. ‘vai’
-		String parametro = null; // es. ‘sud’
+	public Comando costruisciComando(String istruzione) throws NoSuchMethodException, SecurityException, 
+															   IllegalArgumentException, InvocationTargetException,
+															   IllegalAccessException {
+		Scanner scannerDiParole = new Scanner(istruzione); 	// es. ‘vai sud’
+		String nomeComando = null; 	// es. ‘vai’
+		String parametro = null; 	// es. ‘sud’
 		Comando comando = null;
+		
 		if (scannerDiParole.hasNext())
-		nomeComando = scannerDiParole.next();//prima parola: nome del comando
+		nomeComando = scannerDiParole.next(); //prima parola: nome del comando
 		if (scannerDiParole.hasNext())
-		parametro = scannerDiParole.next();//seconda parola: eventuale parametro
-		StringBuilder nomeClasse
-
-		= new StringBuilder("it.uniroma3.diadia.comandi.Comando");
+		parametro = scannerDiParole.next();   //seconda parola: eventuale parametro
+		
+		if(nomeComando == null) {
+			return new ComandoNonValido(io);
+		}
+		
+		StringBuilder nomeClasse = new StringBuilder("it.uniroma3.diadia.comandi.Comando");
 		nomeClasse.append( Character.toUpperCase(nomeComando.charAt(0)) );
-		// es. nomeClasse: ‘it.uniroma3.diadia.comandi.ComandoV’
-		nomeClasse.append( nomeComando.substring(1) ) ;
-		// es. nomeClasse: ‘it.uniroma3.diadia.comandi.ComandoVai’
-		//comando = (Comando)Class.forName(nomeClasse.toString()).newInstance();
-		// POSSIBILE ALTERNATIVA basata sul rendere il tipo Class<Comando> esplicito:
+		nomeClasse.append( nomeComando.substring(1) );
+		
 		try {
-			comando = ((Class<Comando>)Class.forName(nomeClasse.toString())).newInstance();
+			Class<?> classeComando = Class.forName(nomeClasse.toString());
+			Constructor<?> costruttore = classeComando.getDeclaredConstructor();
+			comando = (Comando) costruttore.newInstance();
 			comando.addIO(io);
 		}
-		catch(InstantiationException e) {
-			this.io.mostraMessaggio("ERRORE: la classe del comando non può essere creata");
+		catch (ClassNotFoundException e) {
 			comando = new ComandoNonValido(io);
+			this.io.mostraMessaggio("Comando '" + nomeComando + "' inesistente.");
 		}
-		catch(IllegalAccessException e) {
-			this.io.mostraMessaggio("ERRORE: la classe del comando esiste, ma non è accessibile");
+		catch (NoSuchMethodException | InstantiationException | IllegalArgumentException | InvocationTargetException e) {
 			comando = new ComandoNonValido(io);
+			this.io.mostraMessaggio("Errore: il comando '" + nomeComando + "' non può essere eseguito.");
+			e.printStackTrace();
 		}
-		catch(ClassNotFoundException e) {
-			/* possibile causa: comando ignoto – errore digitazione utente */
-			comando = new ComandoNonValido(io);
-			this.io.mostraMessaggio("Comando inesistente");
-		}
+	
 		comando.setParametro(parametro);
 		return comando;
 	}

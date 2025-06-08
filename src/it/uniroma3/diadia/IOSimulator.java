@@ -10,7 +10,7 @@ public class IOSimulator implements IO {
 	private List<String> output;
 
 	
-	//se viene passato un oggetto di una classe che implementa List
+	//viene passato un oggetto di una classe che implementa List
 	public IOSimulator(List<String> input) {
 		this.input = new ArrayList<>(input);   //ArrayList accetta nei costruttori collection oppure int (initial capacity)
 		this.output = new ArrayList<>();

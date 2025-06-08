@@ -15,6 +15,7 @@ public class ComandoFine implements Comando {
 	public ComandoFine(IO io) {
 		this.io = io;
 	}
+	
 	public ComandoFine() {}
 	
 	@Override

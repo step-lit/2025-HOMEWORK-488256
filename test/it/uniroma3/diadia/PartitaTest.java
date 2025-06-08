@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class PartitaTest {
@@ -13,9 +14,10 @@ public class PartitaTest {
 
 	@BeforeEach
 	public void setUp() {
-		this.nuovaPartita = new Partita(null);
+		this.nuovaPartita = new Partita(Labirinto.newBuilder().addStanzaIniziale("Atrio")
+															  .addStanzaVincente("Biblioteca")
+															  .build());
 	}
-	
 	
 	/********************************************************************
 	 *    metodi di test per il metodo vinta() della classe Partita     *

@@ -1,9 +1,7 @@
 package it.uniroma3.diadia;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.Properties;
-
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;

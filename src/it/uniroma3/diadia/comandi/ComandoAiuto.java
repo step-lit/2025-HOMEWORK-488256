@@ -13,7 +13,9 @@ public class ComandoAiuto implements Comando {
 	public ComandoAiuto(IO io) {
 		this.io = io;
 	}
+	
 	public ComandoAiuto() {}
+	
 	
 	@Override
 	public void addIO(IO io) {
@@ -23,8 +25,8 @@ public class ComandoAiuto implements Comando {
 	static final private String[] elencoComandi = {"vai", "prendi", "posa", "aiuto", "interagisci", "fine"};
 	@Override
 	public void esegui(Partita partita) {
-		for(int i=0; i< elencoComandi.length; i++) 
-			io.mostraMessaggio(elencoComandi[i]+" ");
+		for(int i=0; i< elencoComandi.length; i++)
+			io.mostraMessaggio(elencoComandi[i]);
 		io.mostraMessaggio("");
 	}
 	@Override

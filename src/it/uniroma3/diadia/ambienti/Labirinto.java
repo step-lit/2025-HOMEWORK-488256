@@ -22,8 +22,13 @@ public class Labirinto {
 	private Stanza stanzaIniziale;
 	private Map<String, Stanza> stanzeLabirinto; //una mappa di tutte le stanze
 	
-	public Labirinto() {
+	private Labirinto() {
 		this.stanzeLabirinto = new HashMap<>();
+	}
+	
+	/* Metodo statico per la creazione di un Labirinto */
+	public static LabirintoBuilder newBuilder(){
+		return new LabirintoBuilder();
 	}
 	
 	public static Labirinto creaDaFile(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {

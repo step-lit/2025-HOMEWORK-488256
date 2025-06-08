@@ -19,7 +19,7 @@ public class LabirintoBuilderTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		labirintoBuilder = new Labirinto.LabirintoBuilder();
+		labirintoBuilder = Labirinto.newBuilder();
 	}
 	@Test
 	public void testMonolocale() {

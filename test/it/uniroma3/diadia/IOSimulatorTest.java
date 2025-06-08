@@ -12,25 +12,22 @@ class IOSimulatorTest {
 	DiaDia gioco;
 	List<String> comandi;
 	IOSimulator simulator;
-	Labirinto.LabirintoBuilder labirintoTest;
 	String nomeStanzaIniziale;
 	String nomeStanzaVincente;
 	
 	@BeforeEach
 	void setUp() {
 		comandi = new ArrayList<>();
-		labirintoTest = new Labirinto.LabirintoBuilder();
 		nomeStanzaIniziale = "Atrio";
 		nomeStanzaVincente = "Uscita";
 	}
-	
 	
 	@Test
 	void testSimulatorHaiVinto() throws Throwable {
 		comandi.add("vai nord");
 		
 		simulator = new IOSimulator(comandi);
-		Labirinto labirinto = labirintoTest
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale(nomeStanzaIniziale)
 				.addStanzaVincente(nomeStanzaVincente)
 				.addAdiacenza(nomeStanzaIniziale, nomeStanzaVincente, "nord")
@@ -51,7 +48,7 @@ class IOSimulatorTest {
 		comandi.add("vai nord");
 		
 		simulator = new IOSimulator(comandi);
-		Labirinto labirinto = labirintoTest
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale(nomeStanzaIniziale)
 				.addStanzaVincente(nomeStanzaVincente)
 				.addStanza("Corridoio")
@@ -80,7 +77,7 @@ class IOSimulatorTest {
 		comandi.add("vai nord");
 		
 		simulator = new IOSimulator(comandi);
-		Labirinto labirinto = labirintoTest
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale(nomeStanzaIniziale)
 				.addAttrezzo("osso", 1)
 				.addStanza("Aula N10")

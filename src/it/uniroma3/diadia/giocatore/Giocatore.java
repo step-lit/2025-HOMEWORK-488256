@@ -1,7 +1,4 @@
 package it.uniroma3.diadia.giocatore;
-import java.util.Map;
-import java.util.Properties;
-import java.io.*;
 
 public class Giocatore {
 	

@@ -17,14 +17,20 @@ public class ComandoPrendi implements Comando {
 	public ComandoPrendi(IO io) {
 		this.io = io;
 	}	
+	
+	public ComandoPrendi() {}	
+	
 	@Override
 	public void addIO(IO io) {
 		this.io = io;
 	}
+	
 	@Override
 	public void esegui(Partita partita) {
-		if(nomeAttrezzo == null)
-			io.mostraMessaggio("Non hai specificato l'attrezzo da prendere!");
+		if( partita.getStanzaCorrente().getAttrezzi().size() == 0 )
+			io.mostraMessaggio("La stanza in questo momento non ha attrezzi.");
+		if(nomeAttrezzo == null || !partita.getStanzaCorrente().getAttrezzi().containsKey(nomeAttrezzo))
+			io.mostraMessaggio("Non hai specificato l'attrezzo da prendere o non c'è nessun attrezzo con quel nomevai!");
 		else if( partita.getLabirinto().getStanzaCorrente().hasAttrezzo(nomeAttrezzo) ) {
 			Attrezzo attrezzoVoluto = partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 			
